@@ -1,4 +1,4 @@
-#FCC Legacy Project: Show Local Weather
+# FCC Legacy Project: Show Local Weather
 
 User Story: I can see the weather in my current location.
 
