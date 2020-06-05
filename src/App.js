@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { GlobalStyles } from "./global";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
-import Location from "./location";
-import Weather from "./weather";
+import Location from "./Components/location";
+import Weather from "./Components/weather";
 import axios from "axios";
 
 function App() {
@@ -23,6 +23,20 @@ function App() {
     } else {
       alert("Sorry, your browser does not support HTML5 geolocation.");
     }
+  }
+
+  function showCity() {
+    const YOUR_API_KEY = "AIzaSyC6o7jtXnfB7iX0EcRf7w725Ff5KFWhYe0";
+    axios({
+      method: "get",
+      url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${YOUR_API_KEY}`,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   function showWeather() {
@@ -48,6 +62,7 @@ function App() {
   useEffect(() => {
     showPosition();
     showWeather();
+    showCity();
   });
 
   return (
