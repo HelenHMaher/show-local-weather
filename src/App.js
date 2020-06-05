@@ -9,7 +9,6 @@ function App() {
   const [geoLocation, setGeoLocation] = useState("...connecting");
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const [weather, setWeather] = useState(null);
 
   useEffect(() => {
     function showPosition() {

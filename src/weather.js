@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
 export const Weather = (props) => {
-
   const { lon, lat } = props;
-  const weather;
+  const [weather, setWeather] = useState(null);
 
   function showWeather() {
     axios({
@@ -18,7 +17,7 @@ export const Weather = (props) => {
     })
       .then((response) => {
         console.log(response);
-        weather = (response);
+        setWeather(response);
       })
       .catch((error) => {
         console.log(error);
