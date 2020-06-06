@@ -5,7 +5,9 @@ const app = express();
 
 // use the express-static middleware
 app.use(express.static(path.join(__dirname, "build")));
-
+app.get("/heartbeat", function (req, res) {
+  res.send("<3");
+});
 // define the first route
 app.get("/*", function (req, res) {
   res.send(path.join(__dirname, "build", "index.html"));
