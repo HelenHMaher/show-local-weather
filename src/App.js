@@ -13,6 +13,8 @@ function App() {
   const [weatherDescript, setWeatherDescript] = useState(null);
   const [weather, setWeather] = useState(null);
 
+  //google api requires payment: look up "https://nominatim.org/release-docs/develop/api/Reverse/" for alt api
+
   function showPosition() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -26,13 +28,14 @@ function App() {
   }
 
   function showCity() {
-    const YOUR_API_KEY = "AIzaSyC6o7jtXnfB7iX0EcRf7w725Ff5KFWhYe0";
+    const YOUR_API_KEY = process.env.API_KEY;
     axios({
       method: "get",
       url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${YOUR_API_KEY}`,
     })
       .then((response) => {
         console.log(response);
+        console.log("reverseGeolocation");
       })
       .catch((error) => {
         console.log(error);
