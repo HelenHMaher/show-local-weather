@@ -31,8 +31,8 @@ function App() {
     //const YOUR_API_KEY = process.env.API_KEY;
     axios({
       method: "get",
-      url: `https://nominatim.openstreetmap.org/reverse?`,
-      query: {
+      url: "https://nominatim.openstreetmap.org/reverse?",
+      params: {
         lat: latitude,
         lon: longitude,
       },
