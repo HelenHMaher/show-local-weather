@@ -28,10 +28,14 @@ function App() {
   }
 
   function showCity() {
-    const YOUR_API_KEY = process.env.API_KEY;
+    //const YOUR_API_KEY = process.env.API_KEY;
     axios({
       method: "get",
-      url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${YOUR_API_KEY}`,
+      url: `https://nominatim.openstreetmap.org/reverse?`,
+      query: {
+        lat: latitude,
+        lon: longitude,
+      },
     })
       .then((response) => {
         console.log(response);
