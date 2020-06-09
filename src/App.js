@@ -12,6 +12,8 @@ function App() {
   const [weatherTheme, setWeatherTheme] = useState(null);
   const [weatherDescript, setWeatherDescript] = useState(null);
   const [weather, setWeather] = useState(null);
+  const [city, setCity] = useState(null);
+  const [country, setCountry] = useState(null);
 
   //google api requires payment: look up "https://nominatim.org/release-docs/develop/api/Reverse/" for alt api
 
@@ -35,9 +37,12 @@ function App() {
       params: {
         lat: latitude,
         lon: longitude,
+        format: "json",
       },
     })
       .then((response) => {
+        setCity(response.data.address.borough);
+        setCountry(response.data.address.country);
         console.log(response);
         console.log("reverseGeolocation");
       })
@@ -80,7 +85,12 @@ function App() {
           <header className="App-header">
             <p>Local Weather Report</p>
           </header>
-          <Location lat={latitude} lon={longitude} />
+          <Location
+            lat={latitude}
+            lon={longitude}
+            city={city}
+            country={country}
+          />
           <Weather weather={weather} />
           Weather Theme: {weatherTheme}
           Weather Description: {weatherDescript}
