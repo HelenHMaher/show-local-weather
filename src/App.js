@@ -15,8 +15,6 @@ function App() {
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
 
-  //google api requires payment: look up "https://nominatim.org/release-docs/develop/api/Reverse/" for alt api
-
   function showPosition() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -29,8 +27,9 @@ function App() {
     }
   }
 
+  //eventually functionality for geocoding to input a city and return the weather
+
   function showCity() {
-    //const YOUR_API_KEY = process.env.API_KEY;
     axios({
       method: "get",
       url: "https://nominatim.openstreetmap.org/reverse?",
@@ -54,6 +53,32 @@ function App() {
   function showWeather() {
     axios({
       method: "get",
+      url: "https://climacell-microweather-v1.p.rapidapi.com/weather/nowcast",
+      params: {
+        fields: "precipitation",
+        unit_systems: "si",
+        lat: latitude,
+        lon: longitude,
+      },
+      headers: {
+        "x-rapidapi-host": "climacell-microweather-v1.p.rapidapi.com",
+        "x-rapidapi-key": "SIGN-UP-FOR-KEY",
+        useQueryString: true,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  /*use different API for better resonsiveness
+
+  function showWeather() {
+    axios({
+      method: "get",
       url: "https://fcc-weather-api.glitch.me/api/current",
       params: {
         lat: latitude,
@@ -70,6 +95,7 @@ function App() {
         console.log(error);
       });
   }
+  */
 
   useEffect(() => {
     showPosition();
