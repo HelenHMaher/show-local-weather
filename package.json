@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
     "gh-pages": "^3.0.0",
     "path": "^0.12.7",
     "prop-types": "^15.7.2",
