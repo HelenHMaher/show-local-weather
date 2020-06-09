@@ -62,12 +62,13 @@ function App() {
       },
       headers: {
         "x-rapidapi-host": "climacell-microweather-v1.p.rapidapi.com",
-        "x-rapidapi-key": "SIGN-UP-FOR-KEY",
+        "x-rapidapi-key": process.env.API_KEY,
         useQueryString: true,
       },
     })
       .then((response) => {
         console.log(response);
+        console.log("weather data");
       })
       .catch((error) => {
         console.log(error);
