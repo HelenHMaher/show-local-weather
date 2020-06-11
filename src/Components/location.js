@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 export const Location = (props) => {
-  const { lat, lon, city, country, getMyLocation, clickHandler } = props;
+  const {
+    lat,
+    lon,
+    city,
+    country,
+    getMyLocation,
+    clickHandler,
+    handleSubmit,
+  } = props;
+
+  const [cityInput, setCityInput] = useState("");
+  const [countryInput, setCountryInput] = useState("");
 
   if (getMyLocation) {
     return (
@@ -27,7 +38,30 @@ export const Location = (props) => {
         <div className="latAndLon">
           Latitude: {lat} Longitude: {lon}
         </div>
-        <input className="city" />
+        <form className="getLocationForm" onSubmit={handleSubmit}>
+          <label htmlFor="cityInput">City: </label>
+          <input
+            value={cityInput}
+            name="cityInput"
+            id="cityInput"
+            placeholder="city"
+            required
+            onChange={(e) => setCityInput(e.target.value)}
+          />
+          <label htmlFor="countryInput">Country: </label>
+          <input
+            value={countryInput}
+            name="countryInput"
+            id="countryInput"
+            placeholder="country"
+            required
+            onChange={(e) => setCountryInput(e.target.value)}
+          />
+          <input type="submit" />
+        </form>
+        <div className="displayLocation">
+          <h1>{cityInput}</h1> <h2>{countryInput}</h2>
+        </div>
       </div>
     );
   }
@@ -36,6 +70,7 @@ export const Location = (props) => {
 export default Location;
 
 Location.propTypes = {
+  handleSubmit: PropTypes.func,
   getMyLocation: PropTypes.bool,
   clickHandler: PropTypes.func,
   lat: PropTypes.number,

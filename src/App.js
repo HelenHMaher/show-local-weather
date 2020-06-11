@@ -20,6 +20,12 @@ function App() {
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
 
+  function handleSubmit(city, country) {
+    setCity(city);
+    setCountry(country);
+    getCoords();
+  }
+
   function clickHandler() {
     setMyLocation(!getMyLocation);
   }
@@ -42,14 +48,14 @@ function App() {
     }
   }
 
-  function getCoords(country, postalcode) {
+  function getCoords(country, city) {
     axios({
       method: "get",
       url:
         "https://cors-anywhere.herokuapp.com/https://nominatim.openstreetmap.org/search",
       params: {
         country: country,
-        postalcode: postalcode,
+        city: city,
         format: "geojson",
       },
     })
@@ -114,10 +120,8 @@ function App() {
   useEffect(() => {
     if (getMyLocation) {
       showPosition();
-    } else {
-      getCoords();
     }
-  }, [getMyLocation]);
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -134,6 +138,7 @@ function App() {
             city={city}
             country={country}
             clickHandler={clickHandler}
+            handleSubmit={handleSubmit}
           />
           <Weather
             temp={temp}
