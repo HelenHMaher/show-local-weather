@@ -7,6 +7,7 @@ import Weather from "./Components/weather";
 import axios from "axios";
 
 function App() {
+  const [getMyLocation, setMyLocation] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [weatherTheme, setWeatherTheme] = useState(null);
@@ -18,6 +19,10 @@ function App() {
   const [cloudCover, setCloudCover] = useState(null);
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
+
+  function clickHandler() {
+    setMyLocation(!getMyLocation);
+  }
 
   function showPosition() {
     if (navigator.geolocation) {
@@ -37,6 +42,26 @@ function App() {
     }
   }
 
+  function getCoords(country, postalcode) {
+    axios({
+      method: "get",
+      url:
+        "https://cors-anywhere.herokuapp.com/https://nominatim.openstreetmap.org/search",
+      params: {
+        country: country,
+        postalcode: postalcode,
+        format: "geojson",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        console.log("geolocation");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   function showCity(coordinates) {
     axios({
       method: "get",
@@ -52,7 +77,7 @@ function App() {
       .then((response) => {
         setCity(response.data.address.borough);
         setCountry(response.data.address.country);
-        console.log(response);
+        //console.log(response);
         console.log("reverseGeolocation");
       })
       .catch((error) => {
@@ -87,8 +112,12 @@ function App() {
   }
 
   useEffect(() => {
-    showPosition();
-  }, []);
+    if (getMyLocation) {
+      showPosition();
+    } else {
+      getCoords();
+    }
+  }, [getMyLocation]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -99,10 +128,12 @@ function App() {
             <p>Local Weather Report</p>
           </header>
           <Location
+            getMyLocation={getMyLocation}
             lat={latitude}
             lon={longitude}
             city={city}
             country={country}
+            clickHandler={clickHandler}
           />
           <Weather
             temp={temp}
