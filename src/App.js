@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { GlobalStyles } from "./global";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
@@ -11,78 +11,71 @@ function App() {
   const [longitude, setLongitude] = useState(null);
   const [weatherTheme, setWeatherTheme] = useState(null);
   const [weatherDescript, setWeatherDescript] = useState(null);
-  const [weather, setWeather] = useState(null);
+  const [temp, setTemp] = useState(null);
+  const [humidity, setHumidity] = useState(null);
+  const [pressure, setPressure] = useState(null);
+  const [windSpeed, setWindSpeed] = useState(null);
+  const [cloudCover, setCloudCover] = useState(null);
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
 
   function showPosition() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-        console.log("location data received");
+        const result = {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+        };
+        //console.log(result);
+        setLatitude(result.lat);
+        setLongitude(result.lon);
+        showCity(result);
+        showWeather(result);
       });
     } else {
       alert("Sorry, your browser does not support HTML5 geolocation.");
     }
   }
 
-  //eventually functionality for geocoding to input a city and return the weather
-
-  function showCity() {
+  function showCity(coordinates) {
     axios({
       method: "get",
       url: "https://nominatim.openstreetmap.org/reverse?",
       params: {
-        lat: latitude,
-        lon: longitude,
+        lat: coordinates.lat,
+        lon: coordinates.lon,
         format: "json",
       },
     })
       .then((response) => {
         setCity(response.data.address.borough);
         setCountry(response.data.address.country);
-        //console.log(response);
+        console.log(response);
         console.log("reverseGeolocation");
       })
       .catch((error) => {
         console.log(error);
       });
   }
-  /*
-  function showWeather() {
-    axios({
-      method: "get",
-      url: "https://api.weather.gov/points/",
-      params: {
-        lat: latitude,
-        lon: longitude,
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        console.log("weather data");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-*/
-  //use different API for better resonsiveness
 
-  function showWeather() {
+  function showWeather(coordinates) {
     axios({
       method: "get",
       url:
         "https://cors-anywhere.herokuapp.com/https://fcc-weather-api.glitch.me/api/current",
       params: {
-        lat: latitude,
-        lon: longitude,
+        lat: coordinates.lat,
+        lon: coordinates.lon,
       },
     })
       .then((response) => {
         console.log("cors proxy weather data");
-        setWeather(response.data.main.temp);
+        console.log(response.data);
+        setTemp(response.data.main.temp);
+        setHumidity(response.data.main.humidity);
+        setPressure(response.data.main.pressure);
+        setWindSpeed(response.data.wind.speed);
+        setCloudCover(response.data.clouds.all);
         setWeatherTheme(response.data.weather[0].main);
         setWeatherDescript(response.data.weather[0].description);
       })
@@ -93,9 +86,7 @@ function App() {
 
   useEffect(() => {
     showPosition();
-    showWeather();
-    showCity();
-  });
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -111,7 +102,13 @@ function App() {
             city={city}
             country={country}
           />
-          <Weather weather={weather} />
+          <Weather
+            temp={temp}
+            humidity={humidity}
+            pressure={pressure}
+            windSpeed={windSpeed}
+            cloudCover={cloudCover}
+          />
           Weather Theme: {weatherTheme}
           Weather Description: {weatherDescript}
           <footer className="App-footer">Helen Maher</footer>
