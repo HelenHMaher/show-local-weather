@@ -108,9 +108,9 @@ function App() {
             pressure={pressure}
             windSpeed={windSpeed}
             cloudCover={cloudCover}
+            description={weatherDescript}
           />
           Weather Theme: {weatherTheme}
-          Weather Description: {weatherDescript}
           <footer className="App-footer">Helen Maher</footer>
         </div>
       </>
