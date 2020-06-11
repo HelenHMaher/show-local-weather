@@ -80,14 +80,15 @@ function App() {
   function showWeather() {
     axios({
       method: "get",
-      url: "https://fcc-weather-api.glitch.me/api/current",
+      url:
+        "https://cors-anywhere.herokuapp.com/https://fcc-weather-api.glitch.me/api/current",
       params: {
         lat: latitude,
         lon: longitude,
       },
     })
       .then((response) => {
-        console.log("weather data");
+        console.log("cors proxy weather data");
         setWeather(response.data.main.temp);
         setWeatherTheme(response.data.weather[0].main);
         setWeatherDescript(response.data.weather[0].description);
