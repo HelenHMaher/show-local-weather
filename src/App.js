@@ -49,7 +49,7 @@ function App() {
         console.log(error);
       });
   }
-
+  /*
   function showWeather() {
     axios({
       method: "get",
@@ -74,8 +74,8 @@ function App() {
         console.log(error);
       });
   }
-
-  /*use different API for better resonsiveness
+*/
+  //use different API for better resonsiveness
 
   function showWeather() {
     axios({
@@ -96,7 +96,6 @@ function App() {
         console.log(error);
       });
   }
-  */
 
   useEffect(() => {
     showPosition();
