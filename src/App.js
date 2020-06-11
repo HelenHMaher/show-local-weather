@@ -53,17 +53,10 @@ function App() {
   function showWeather() {
     axios({
       method: "get",
-      url: "https://climacell-microweather-v1.p.rapidapi.com/weather/nowcast",
+      url: "https://api.weather.gov/points/",
       params: {
-        fields: "precipitation",
-        unit_systems: "si",
         lat: latitude,
         lon: longitude,
-      },
-      headers: {
-        "x-rapidapi-host": "climacell-microweather-v1.p.rapidapi.com",
-        "x-rapidapi-key": process.env.API_KEY,
-        useQueryString: true,
       },
     })
       .then((response) => {
