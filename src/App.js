@@ -42,7 +42,7 @@ function App() {
       .then((response) => {
         setCity(response.data.address.borough);
         setCountry(response.data.address.country);
-        console.log(response);
+        //console.log(response);
         console.log("reverseGeolocation");
       })
       .catch((error) => {
@@ -87,7 +87,7 @@ function App() {
       },
     })
       .then((response) => {
-        console.log(response);
+        console.log("weather data");
         setWeather(response.data.main.temp);
         setWeatherTheme(response.data.weather[0].main);
         setWeatherDescript(response.data.weather[0].description);
