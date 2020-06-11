@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { GlobalStyles } from "./global";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
@@ -40,11 +40,13 @@ function App() {
   function showCity(coordinates) {
     axios({
       method: "get",
-      url: "https://nominatim.openstreetmap.org/reverse?",
+      url:
+        "https://cors-anywhere.herokuapp.com/https://nominatim.openstreetmap.org/reverse",
       params: {
         lat: coordinates.lat,
         lon: coordinates.lon,
         format: "json",
+        zoom: "14",
       },
     })
       .then((response) => {
@@ -69,8 +71,8 @@ function App() {
       },
     })
       .then((response) => {
-        console.log("cors proxy weather data");
-        console.log(response.data);
+        console.log("weather data");
+        //console.log(response.data);
         setTemp(response.data.main.temp);
         setHumidity(response.data.main.humidity);
         setPressure(response.data.main.pressure);
