@@ -12,7 +12,9 @@ export const Weather = (props) => {
   const [windSpeed, setWindSpeed] = useState(null);
   const [cloudCover, setCloudCover] = useState(null);
 
-  /*//FCC gets Weather Data from http://api.openweathermap.org waiting for API KEY to be activated
+  const STATUS = "";
+
+  //FCC gets Weather Data from http://api.openweathermap.org waiting for API KEY to be activated
   function showWeather() {
     axios({
       method: "get",
@@ -39,8 +41,8 @@ export const Weather = (props) => {
       .catch((error) => {
         console.log(error);
       });
-  }*/
-
+  }
+  /*
   function showWeather() {
     axios({
       method: "get",
@@ -66,10 +68,10 @@ export const Weather = (props) => {
       .catch((error) => {
         console.log(error);
       });
-  }
+  }*/
 
   useEffect(() => {
-    if (haveMyLocation && process.env.STATUS !== "development") {
+    if (haveMyLocation && STATUS !== "development") {
       showWeather();
     }
   }, [haveMyLocation]);

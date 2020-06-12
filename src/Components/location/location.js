@@ -18,6 +18,8 @@ export const Location = (props) => {
   const [tempCountry, setTempCountry] = useState("");
   const [placeName, setPlaceName] = useState("");
 
+  const STATUS = "";
+
   function showCity() {
     axios({
       method: "get",
@@ -72,11 +74,7 @@ export const Location = (props) => {
   };
 
   useEffect(() => {
-    if (
-      getMyLocation &&
-      haveMyLocation &&
-      process.env.STATUS !== "development"
-    ) {
+    if (getMyLocation && haveMyLocation && STATUS !== "development") {
       showCity();
     }
   }, [haveMyLocation]);
