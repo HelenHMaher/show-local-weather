@@ -12,6 +12,8 @@ export const Weather = (props) => {
   const [windSpeed, setWindSpeed] = useState(null);
   const [cloudCover, setCloudCover] = useState(null);
 
+  //FCC gets Weather Data from http://api.openweathermap.org
+
   function showWeather() {
     axios({
       method: "get",

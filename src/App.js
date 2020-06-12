@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
 import Location from "./Components/location/location";
 import Weather from "./Components/weather/weather";
+import Footer from "./Components/footer/footer";
 
 function App() {
   const [getMyLocation, setMyLocation] = useState(true);
@@ -78,7 +79,7 @@ function App() {
             haveMyLocation={haveMyLocation}
           />
           Weather Theme: {weatherTheme}
-          <footer className="App-footer">Helen Maher</footer>
+          <Footer />
         </div>
       </>
     </ThemeProvider>
