@@ -11,8 +11,10 @@ function App() {
   const [haveMyLocation, setHaveMyLocation] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const [weatherTheme, setWeatherTheme] = useState("none");
-  const [image, setImage] = useState(null);
+  const [weatherTheme, setWeatherTheme] = useState("");
+  const [image, setImage] = useState(
+    `https://openweathermap.org/img/wn/01n@2x.png`
+  );
 
   function changeImage(input) {
     const idCode = input;
@@ -60,7 +62,7 @@ function App() {
         main = "default";
     }
     console.log(main + " : " + idCode);
-    setImage(`https://openweathermap.org/img/wn/${code}.png`);
+    setImage(`https://openweathermap.org/img/wn/${code}@2x.png`);
   }
 
   //change weather theme
@@ -122,6 +124,10 @@ function App() {
             submitLatLon={submitLatLon}
             haveMyLocation={haveMyLocation}
           />
+          <div className="mainWeather">
+            {weatherTheme}
+            <img alt="weather icon" src={image} />
+          </div>
           <Weather
             changeWeatherTheme={changeWeatherTheme}
             lat={latitude}
@@ -129,8 +135,6 @@ function App() {
             haveMyLocation={haveMyLocation}
             changeImage={changeImage}
           />
-          Weather Theme: {weatherTheme}
-          <img alt="weather icon" src={image} />
           <Footer />
         </div>
       </>

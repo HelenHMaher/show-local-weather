@@ -12,7 +12,7 @@ export const Weather = (props) => {
   const [windSpeed, setWindSpeed] = useState(null);
   const [cloudCover, setCloudCover] = useState(null);
 
-  const STATUS = "";
+  const STATUS = "development";
 
   /*//FCC gets Weather Data from http://api.openweathermap.org waiting for API KEY to be activated
   function showWeather() {
