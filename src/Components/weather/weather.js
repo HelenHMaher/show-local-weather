@@ -24,7 +24,7 @@ export const Weather = (props) => {
 
   const STATUS = "";
 
-  /*//FCC gets Weather Data from http://api.openweathermap.org waiting for API KEY to be activated
+  //FCC gets Weather Data from http://api.openweathermap.org waiting for API KEY to be activated
   function showWeather() {
     axios({
       method: "get",
@@ -38,22 +38,27 @@ export const Weather = (props) => {
     })
       .then((response) => {
         console.log("weather data");
+        const data = response.data;
 
-        setTemp(response.data.main.temp);
-        setHumidity(response.data.main.humidity);
-        setPressure(response.data.main.pressure);
-        setWindSpeed(response.data.wind.speed);
-        setCloudCover(response.data.clouds.all);
-        setWeatherDescript(response.data.weather[0].description);
+        setTemp(data.main.temp);
+        setHumidity(data.main.humidity);
+        setPressure(data.main.pressure);
+        setWindSpeed(data.wind.speed);
+        setCloudCover(data.clouds.all);
+        setWeatherDescript(data.weather[0].description);
+        setSunrise(data.sys.sunrise);
+        setSunset(data.sys.sunset);
 
-        changeWeatherTheme(response.data.weather[0].main);
+        changeImage(data.weather[0].id);
+        changeWeatherTheme(data.weather[0].main);
+        changeDayNight(data.sys.sunrise, data.sys.sunset);
       })
       .catch((error) => {
         console.log(error);
       });
-  }*/
+  }
 
-  //fcc makes the call in metric
+  /*  //fcc makes the call in metric
   function showWeather() {
     axios({
       method: "get",
@@ -85,7 +90,7 @@ export const Weather = (props) => {
         console.log(error);
       });
   }
-
+*/
   useEffect(() => {
     if (haveMyLocation && STATUS !== "development") {
       showWeather();
