@@ -15,6 +15,7 @@ function App() {
   //change weather theme
   function changeWeatherTheme(input) {
     setWeatherTheme(input);
+    setHaveMyLocation(false);
   }
 
   //getLatandLon from Location

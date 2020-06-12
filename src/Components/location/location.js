@@ -55,12 +55,16 @@ export const Location = (props) => {
     })
       .then((response) => {
         console.log("geolocation");
-        submitLatLon(response.data.features[0]);
         setCity(tempCity);
         setCountry(tempCountry);
         setTempCity("");
         setTempCountry("");
-        setPlaceName(response.data.features[0].properties.display_name);
+        if (response.data.features.length >= 1) {
+          submitLatLon(response.data.features[0]);
+          setPlaceName(response.data.features[0].properties.display_name);
+        } else {
+          setPlaceName("ERROR: location data not found");
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -71,7 +75,7 @@ export const Location = (props) => {
     if (getMyLocation && haveMyLocation) {
       showCity();
     }
-  }, [getMyLocation, haveMyLocation]);
+  }, [haveMyLocation]);
 
   if (getMyLocation) {
     return (
@@ -118,7 +122,9 @@ export const Location = (props) => {
           <input type="submit" />
         </form>
         <div className="displayLocation">
-          <h1>{city}</h1> <h2>{country}</h2>
+          <div id="inputed name">
+            <h1>{city}</h1> <h2>{country}</h2>
+          </div>
           <h5>{placeName}</h5>
         </div>
       </div>
