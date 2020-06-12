@@ -24,7 +24,7 @@ export const Weather = (props) => {
 
   const STATUS = "";
 
-  //FCC gets Weather Data from http://api.openweathermap.org waiting for API KEY to be activated
+  /*//FCC gets Weather Data from http://api.openweathermap.org waiting for API KEY to be activated
   function showWeather() {
     axios({
       method: "get",
@@ -33,6 +33,7 @@ export const Weather = (props) => {
       params: {
         lat: lat,
         lon: lon,
+        units: metric,
         appid: process.env.API_KEY,
       },
     })
@@ -56,9 +57,9 @@ export const Weather = (props) => {
       .catch((error) => {
         console.log(error);
       });
-  }
+  }*/
 
-  /*  //fcc makes the call in metric
+  //fcc makes the call in metric
   function showWeather() {
     axios({
       method: "get",
@@ -90,7 +91,7 @@ export const Weather = (props) => {
         console.log(error);
       });
   }
-*/
+
   useEffect(() => {
     if (haveMyLocation && STATUS !== "development") {
       showWeather();
