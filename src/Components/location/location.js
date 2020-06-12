@@ -72,7 +72,11 @@ export const Location = (props) => {
   };
 
   useEffect(() => {
-    if (getMyLocation && haveMyLocation) {
+    if (
+      getMyLocation &&
+      haveMyLocation &&
+      process.env.STATUS !== "development"
+    ) {
       showCity();
     }
   }, [haveMyLocation]);
