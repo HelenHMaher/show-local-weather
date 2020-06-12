@@ -116,7 +116,7 @@ function App() {
       params: {
         lat: lat,
         long: lon,
-        apiKey: "dfc30544cd064a2fbb4015ca4b8cef07",
+        apiKey: process.env.API_KEY_TIME_ZONE,
       },
     })
       .then((response) => {
