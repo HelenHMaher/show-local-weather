@@ -101,8 +101,8 @@ export const Weather = (props) => {
         <li>Pressure: {pressure} hpa</li>
         <li>Wind Speed: {windSpeed} m/s</li>
         <li>Cloud Cover: {cloudCover} &#37;</li>
-        <li>Sunrise: {moment.unix(sunrise).format("HH:mm:ss")}</li>
-        <li>Sunset: {moment.unix(sunset).format("HH:mm:ss")}</li>
+        <li>Sunrise: {moment.unix(sunrise).utc().format("HH:mm:ss")} UTC</li>
+        <li>Sunset: {moment.unix(sunset).utc().format("HH:mm:ss")} UTC</li>
       </ul>
     </div>
   );
