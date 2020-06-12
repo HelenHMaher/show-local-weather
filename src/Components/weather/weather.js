@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import moment from "moment";
 
 export const Weather = (props) => {
-  const { changeWeatherTheme, lat, lon, haveMyLocation, changeImage } = props;
+  const {
+    changeWeatherTheme,
+    lat,
+    lon,
+    haveMyLocation,
+    changeImage,
+    changeDayNight,
+  } = props;
 
   const [weatherDescript, setWeatherDescript] = useState(null);
   const [temp, setTemp] = useState(null);
@@ -11,8 +19,10 @@ export const Weather = (props) => {
   const [pressure, setPressure] = useState(null);
   const [windSpeed, setWindSpeed] = useState(null);
   const [cloudCover, setCloudCover] = useState(null);
+  const [sunrise, setSunrise] = useState(null);
+  const [sunset, setSunset] = useState(null);
 
-  const STATUS = "development";
+  const STATUS = "";
 
   /*//FCC gets Weather Data from http://api.openweathermap.org waiting for API KEY to be activated
   function showWeather() {
@@ -43,6 +53,7 @@ export const Weather = (props) => {
       });
   }*/
 
+  //fcc makes the call in metric
   function showWeather() {
     axios({
       method: "get",
@@ -55,16 +66,20 @@ export const Weather = (props) => {
     })
       .then((response) => {
         console.log("weather data");
+        const data = response.data;
 
-        setTemp(response.data.main.temp);
-        setHumidity(response.data.main.humidity);
-        setPressure(response.data.main.pressure);
-        setWindSpeed(response.data.wind.speed);
-        setCloudCover(response.data.clouds.all);
-        setWeatherDescript(response.data.weather[0].description);
+        setTemp(data.main.temp);
+        setHumidity(data.main.humidity);
+        setPressure(data.main.pressure);
+        setWindSpeed(data.wind.speed);
+        setCloudCover(data.clouds.all);
+        setWeatherDescript(data.weather[0].description);
+        setSunrise(data.sys.sunrise);
+        setSunset(data.sys.sunset);
 
-        changeImage(response.data.weather[0].id);
-        changeWeatherTheme(response.data.weather[0].main);
+        changeImage(data.weather[0].id);
+        changeWeatherTheme(data.weather[0].main);
+        changeDayNight(data.sys.sunrise, data.sys.sunset);
       })
       .catch((error) => {
         console.log(error);
@@ -81,11 +96,13 @@ export const Weather = (props) => {
     <div className="weather">
       <ul className="weatherData">
         <li>Description: {weatherDescript}</li>
-        <li>Temperature:{temp}</li>
-        <li>Humidity: {humidity}</li>
-        <li>Pressure: {pressure}</li>
-        <li>Wind Speed: {windSpeed}</li>
-        <li>Cloud Cover: {cloudCover}</li>
+        <li>Temperature:{temp} &#176;C</li>
+        <li>Humidity: {humidity} &#37;</li>
+        <li>Pressure: {pressure} hpa</li>
+        <li>Wind Speed: {windSpeed} m/s</li>
+        <li>Cloud Cover: {cloudCover} &#37;</li>
+        <li>Sunrise: {moment.unix(sunrise).format("HH:mm:ss")}</li>
+        <li>Sunset: {moment.unix(sunset).format("HH:mm:ss")}</li>
       </ul>
     </div>
   );
@@ -99,4 +116,5 @@ Weather.propTypes = {
   lon: PropTypes.number,
   haveMyLocation: PropTypes.bool,
   changeImage: PropTypes.func,
+  changeDayNight: PropTypes.func,
 };

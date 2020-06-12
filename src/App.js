@@ -5,6 +5,7 @@ import { theme } from "./theme";
 import Location from "./Components/location/location";
 import Weather from "./Components/weather/weather";
 import Footer from "./Components/footer/footer";
+import moment from "moment";
 
 function App() {
   const [getMyLocation, setMyLocation] = useState(true);
@@ -12,6 +13,8 @@ function App() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [weatherTheme, setWeatherTheme] = useState("");
+  const [dayNight, setDayNight] = useState(null);
+  const [date, setDate] = useState(null);
   const [image, setImage] = useState(
     `https://openweathermap.org/img/wn/01n@2x.png`
   );
@@ -65,6 +68,17 @@ function App() {
     setImage(`https://openweathermap.org/img/wn/${code}@2x.png`);
   }
 
+  function changeDayNight(sunrise, sunset) {
+    let currentTime = moment(date).format("X");
+    if (currentTime > sunrise && currentTime < sunset) {
+      console.log("day");
+      setDayNight("day");
+    } else {
+      console.log("night");
+      setDayNight("night");
+    }
+  }
+
   //change weather theme
   function changeWeatherTheme(input) {
     setWeatherTheme(input);
@@ -94,6 +108,7 @@ function App() {
         };
         setLatitude(result.lat);
         setLongitude(result.lon);
+        setDate(new Date());
         console.log("location data");
         setHaveMyLocation(true);
       });
@@ -127,6 +142,7 @@ function App() {
           <div className="mainWeather">
             {weatherTheme}
             <img alt="weather icon" src={image} />
+            Current Time: {new Date(date).toGMTString()}
           </div>
           <Weather
             changeWeatherTheme={changeWeatherTheme}
@@ -134,6 +150,7 @@ function App() {
             lon={longitude}
             haveMyLocation={haveMyLocation}
             changeImage={changeImage}
+            changeDayNight={changeDayNight}
           />
           <Footer />
         </div>
