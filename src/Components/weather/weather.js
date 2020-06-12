@@ -9,11 +9,10 @@ export const Weather = (props) => {
     lat,
     lon,
     haveMyLocation,
-    changeImage,
     changeDayNight,
   } = props;
 
-  const [weatherDescript, setWeatherDescript] = useState(null);
+  const [weatherDescript, setWeatherDescript] = useState("");
   const [temp, setTemp] = useState(null);
   const [humidity, setHumidity] = useState(null);
   const [pressure, setPressure] = useState(null);
@@ -21,6 +20,7 @@ export const Weather = (props) => {
   const [cloudCover, setCloudCover] = useState(null);
   const [sunrise, setSunrise] = useState(null);
   const [sunset, setSunset] = useState(null);
+  const [img, setImg] = useState("");
 
   const STATUS = "";
 
@@ -73,6 +73,7 @@ export const Weather = (props) => {
       .then((response) => {
         console.log("weather data");
         const data = response.data;
+        const dateTime = response.headers.date;
 
         setTemp(data.main.temp);
         setHumidity(data.main.humidity);
@@ -82,10 +83,15 @@ export const Weather = (props) => {
         setWeatherDescript(data.weather[0].description);
         setSunrise(data.sys.sunrise);
         setSunset(data.sys.sunset);
+        setImg(data.weather[0].id);
 
-        changeImage(data.weather[0].id);
+        changeDayNight(
+          data.sys.sunrise,
+          data.sys.sunset,
+          data.weather[0].id,
+          dateTime
+        );
         changeWeatherTheme(data.weather[0].main);
-        changeDayNight(data.sys.sunrise, data.sys.sunset);
       })
       .catch((error) => {
         console.log(error);
@@ -107,8 +113,8 @@ export const Weather = (props) => {
         <li>Pressure: {pressure} hpa</li>
         <li>Wind Speed: {windSpeed} m/s</li>
         <li>Cloud Cover: {cloudCover} &#37;</li>
-        <li>Sunrise: {moment.unix(sunrise).utc().format("HH:mm:ss")} UTC</li>
-        <li>Sunset: {moment.unix(sunset).utc().format("HH:mm:ss")} UTC</li>
+        <li>Sunrise: {moment.unix(sunrise).utc().format()} UTC</li>
+        <li>Sunset: {moment.unix(sunset).utc().format()} UTC</li>
       </ul>
     </div>
   );
@@ -121,6 +127,5 @@ Weather.propTypes = {
   lat: PropTypes.number,
   lon: PropTypes.number,
   haveMyLocation: PropTypes.bool,
-  changeImage: PropTypes.func,
   changeDayNight: PropTypes.func,
 };
