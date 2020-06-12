@@ -107,6 +107,7 @@ function App() {
     changeImage(img, timeOfDay);
   }
 
+  //IS MY CORS PROXY STRIPPING THE API KEY OUT OF MY REQUEST???
   //set time zone
   function getTimeZone(lat, lon) {
     axios({
