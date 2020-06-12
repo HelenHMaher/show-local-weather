@@ -22,7 +22,7 @@ export const Location = (props) => {
     axios({
       method: "get",
       url:
-        "https://cors-anywhere.herokuapp.com/https://nominatim.openstreetmap.org/reverse",
+        "https://cors-anywhere-hhm.herokuapp.com/https://nominatim.openstreetmap.org/reverse",
       params: {
         lat: lat,
         lon: lon,
@@ -46,7 +46,7 @@ export const Location = (props) => {
     axios({
       method: "get",
       url:
-        "https://cors-anywhere.herokuapp.com/https://nominatim.openstreetmap.org/search",
+        "https://cors-anywhere-hhm.herokuapp.com/https://nominatim.openstreetmap.org/search",
       params: {
         country: tempCountry,
         city: tempCity,

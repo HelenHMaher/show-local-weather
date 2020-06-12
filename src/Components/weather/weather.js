@@ -12,13 +12,40 @@ export const Weather = (props) => {
   const [windSpeed, setWindSpeed] = useState(null);
   const [cloudCover, setCloudCover] = useState(null);
 
-  //FCC gets Weather Data from http://api.openweathermap.org
+  /*//FCC gets Weather Data from http://api.openweathermap.org
+  function showWeather() {
+    axios({
+      method: "get",
+      url:
+        "https://cors-anywhere-hhm.herokuapp.com/api.openweathermap.org/data/2.5/weather",
+      params: {
+        lat: lat,
+        lon: lon,
+        appid: process.env.API_KEY,
+      },
+    })
+      .then((response) => {
+        console.log("weather data");
+
+        setTemp(response.data.main.temp);
+        setHumidity(response.data.main.humidity);
+        setPressure(response.data.main.pressure);
+        setWindSpeed(response.data.wind.speed);
+        setCloudCover(response.data.clouds.all);
+        setWeatherDescript(response.data.weather[0].description);
+
+        changeWeatherTheme(response.data.weather[0].main);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }*/
 
   function showWeather() {
     axios({
       method: "get",
       url:
-        "https://cors-anywhere.herokuapp.com/https://fcc-weather-api.glitch.me/api/current",
+        "https://cors-anywhere-hhm.herokuapp.com/https://fcc-weather-api.glitch.me/api/current",
       params: {
         lat: lat,
         lon: lon,
