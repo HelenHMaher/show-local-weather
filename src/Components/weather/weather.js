@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 
 export const Weather = (props) => {
-  const { changeWeatherTheme, lat, lon, haveMyLocation } = props;
+  const { changeWeatherTheme, lat, lon, haveMyLocation, changeImage } = props;
 
   const [weatherDescript, setWeatherDescript] = useState(null);
   const [temp, setTemp] = useState(null);
@@ -14,7 +14,7 @@ export const Weather = (props) => {
 
   const STATUS = "";
 
-  //FCC gets Weather Data from http://api.openweathermap.org waiting for API KEY to be activated
+  /*//FCC gets Weather Data from http://api.openweathermap.org waiting for API KEY to be activated
   function showWeather() {
     axios({
       method: "get",
@@ -41,8 +41,8 @@ export const Weather = (props) => {
       .catch((error) => {
         console.log(error);
       });
-  }
-  /*
+  }*/
+
   function showWeather() {
     axios({
       method: "get",
@@ -63,12 +63,13 @@ export const Weather = (props) => {
         setCloudCover(response.data.clouds.all);
         setWeatherDescript(response.data.weather[0].description);
 
+        changeImage(response.data.weather[0].id);
         changeWeatherTheme(response.data.weather[0].main);
       })
       .catch((error) => {
         console.log(error);
       });
-  }*/
+  }
 
   useEffect(() => {
     if (haveMyLocation && STATUS !== "development") {
@@ -97,4 +98,5 @@ Weather.propTypes = {
   lat: PropTypes.number,
   lon: PropTypes.number,
   haveMyLocation: PropTypes.bool,
+  changeImage: PropTypes.func,
 };

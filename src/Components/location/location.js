@@ -18,7 +18,7 @@ export const Location = (props) => {
   const [tempCountry, setTempCountry] = useState("");
   const [placeName, setPlaceName] = useState("");
 
-  const STATUS = "";
+  const STATUS = "development";
 
   function showCity() {
     axios({
