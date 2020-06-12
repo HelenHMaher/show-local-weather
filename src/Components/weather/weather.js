@@ -1,20 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 export const Weather = (props) => {
-  const {
-    temp,
-    humidity,
-    pressure,
-    windSpeed,
-    cloudCover,
-    description,
-  } = props;
+  const { changeWeatherTheme, lat, lon, haveMyLocation } = props;
+
+  const [weatherDescript, setWeatherDescript] = useState(null);
+  const [temp, setTemp] = useState(null);
+  const [humidity, setHumidity] = useState(null);
+  const [pressure, setPressure] = useState(null);
+  const [windSpeed, setWindSpeed] = useState(null);
+  const [cloudCover, setCloudCover] = useState(null);
+
+  function showWeather() {
+    axios({
+      method: "get",
+      url:
+        "https://cors-anywhere.herokuapp.com/https://fcc-weather-api.glitch.me/api/current",
+      params: {
+        lat: lat,
+        lon: lon,
+      },
+    })
+      .then((response) => {
+        console.log("weather data");
+
+        setTemp(response.data.main.temp);
+        setHumidity(response.data.main.humidity);
+        setPressure(response.data.main.pressure);
+        setWindSpeed(response.data.wind.speed);
+        setCloudCover(response.data.clouds.all);
+        setWeatherDescript(response.data.weather[0].description);
+
+        changeWeatherTheme(response.data.weather[0].main);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    if (haveMyLocation) {
+      showWeather();
+    }
+  }, [haveMyLocation]);
 
   return (
     <div className="weather">
       <ul className="weatherData">
-        <li>Description: {description}</li>
+        <li>Description: {weatherDescript}</li>
         <li>Temperature:{temp}</li>
         <li>Humidity: {humidity}</li>
         <li>Pressure: {pressure}</li>
@@ -28,10 +62,8 @@ export const Weather = (props) => {
 export default Weather;
 
 Weather.propTypes = {
-  temp: PropTypes.number,
-  humidity: PropTypes.number,
-  pressure: PropTypes.number,
-  windSpeed: PropTypes.number,
-  cloudCover: PropTypes.number,
-  description: PropTypes.string,
+  changeWeatherTheme: PropTypes.func,
+  lat: PropTypes.number,
+  lon: PropTypes.number,
+  haveMyLocation: PropTypes.bool,
 };

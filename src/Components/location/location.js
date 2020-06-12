@@ -7,7 +7,7 @@ export const Location = (props) => {
     lat,
     lon,
     getMyLocation,
-    clickHandler,
+    submitGetLocation,
     submitLatLon,
     haveMyLocation,
   } = props;
@@ -76,7 +76,7 @@ export const Location = (props) => {
   if (getMyLocation) {
     return (
       <div className="location">
-        <button className="getLocation" onClick={clickHandler}>
+        <button className="getLocation" onClick={submitGetLocation}>
           Choose a Location
         </button>
         <div className="latAndLon">
@@ -90,7 +90,7 @@ export const Location = (props) => {
   } else {
     return (
       <div className="location">
-        <button className="getLocation" onClick={clickHandler}>
+        <button className="getLocation" onClick={submitGetLocation}>
           Get my Location
         </button>
         <div className="latAndLon">
@@ -131,7 +131,7 @@ export default Location;
 Location.propTypes = {
   submitLatLon: PropTypes.func,
   getMyLocation: PropTypes.bool,
-  clickHandler: PropTypes.func,
+  submitGetLocation: PropTypes.func,
   lat: PropTypes.number,
   lon: PropTypes.number,
   haveMyLocation: PropTypes.bool,

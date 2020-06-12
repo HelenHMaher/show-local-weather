@@ -4,7 +4,6 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
 import Location from "./Components/location/location";
 import Weather from "./Components/weather/weather";
-import axios from "axios";
 
 function App() {
   const [getMyLocation, setMyLocation] = useState(true);
@@ -13,25 +12,25 @@ function App() {
   const [longitude, setLongitude] = useState(null);
   const [weatherTheme, setWeatherTheme] = useState(null);
 
-  const [weatherDescript, setWeatherDescript] = useState(null);
-  const [temp, setTemp] = useState(null);
-  const [humidity, setHumidity] = useState(null);
-  const [pressure, setPressure] = useState(null);
-  const [windSpeed, setWindSpeed] = useState(null);
-  const [cloudCover, setCloudCover] = useState(null);
+  //change weather theme
+  function changeWeatherTheme(input) {
+    setWeatherTheme(input);
+  }
 
   //getLatandLon from Location
   function submitLatLon(input) {
     setLatitude(input.geometry.coordinates[1]);
     setLongitude(input.geometry.coordinates[0]);
+    setHaveMyLocation(true);
   }
 
   //toggle getMyLocation from Location
-  function clickHandler() {
+  function submitGetLocation() {
     setMyLocation(!getMyLocation);
     setHaveMyLocation(false);
   }
 
+  //get geolocation data
   function showPosition() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -48,34 +47,6 @@ function App() {
       alert("Sorry, your browser does not support HTML5 geolocation.");
     }
   }
-
-  /*
-  function showWeather(coordinates) {
-    axios({
-      method: "get",
-      url:
-        "https://cors-anywhere.herokuapp.com/https://fcc-weather-api.glitch.me/api/current",
-      params: {
-        lat: coordinates.lat,
-        lon: coordinates.lon,
-      },
-    })
-      .then((response) => {
-        console.log("weather data");
-        //console.log(response.data);
-        setTemp(response.data.main.temp);
-        setHumidity(response.data.main.humidity);
-        setPressure(response.data.main.pressure);
-        setWindSpeed(response.data.wind.speed);
-        setCloudCover(response.data.clouds.all);
-        setWeatherTheme(response.data.weather[0].main);
-        setWeatherDescript(response.data.weather[0].description);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-*/
 
   useEffect(() => {
     if (getMyLocation) {
@@ -95,17 +66,15 @@ function App() {
             getMyLocation={getMyLocation}
             lat={latitude}
             lon={longitude}
-            clickHandler={clickHandler}
+            submitGetLocation={submitGetLocation}
             submitLatLon={submitLatLon}
             haveMyLocation={haveMyLocation}
           />
           <Weather
-            temp={temp}
-            humidity={humidity}
-            pressure={pressure}
-            windSpeed={windSpeed}
-            cloudCover={cloudCover}
-            description={weatherDescript}
+            changeWeatherTheme={changeWeatherTheme}
+            lat={latitude}
+            lon={longitude}
+            haveMyLocation={haveMyLocation}
           />
           Weather Theme: {weatherTheme}
           <footer className="App-footer">Helen Maher</footer>
