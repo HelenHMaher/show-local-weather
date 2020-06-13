@@ -84,7 +84,7 @@ function App() {
     date = parseInt(date.format("X"));
 
     const dawn = sunrise + 60 * 60;
-    const dusk = sunset + 60 * 60;
+    const dusk = sunset - 60 * 60;
     console.log(
       " sunrise: " +
         moment.unix(sunrise).utc().format() +
@@ -100,11 +100,11 @@ function App() {
     let timeOfDay;
     if (date > sunrise && date < dawn) {
       timeOfDay = "dawn";
-    } else if (date > dawn && date < sunset) {
+    } else if (date > dawn && date < dusk) {
       timeOfDay = "day";
-    } else if (date > sunset && date < dusk) {
+    } else if (date > dusk && date < sunset) {
       timeOfDay = "dusk";
-    } else if (date > dusk) {
+    } else if (date > sunset) {
       timeOfDay = "night";
     }
     console.log(timeOfDay);
