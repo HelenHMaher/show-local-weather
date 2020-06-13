@@ -82,14 +82,16 @@ function App() {
     const dawn = sunrise + 60 * 60;
     const dusk = sunset + 60 * 60;
     console.log(
-      "dawn: " +
-        dawn +
-        " sunrise: " +
+      " sunrise: " +
+        moment.unix(sunrise).utc().format() +
+        " (" +
         sunrise +
-        " img: " +
-        img +
-        " date: " +
-        date
+        ") " +
+        " sunset: " +
+        moment.unix(sunset).utc().format() +
+        " (" +
+        sunset +
+        ") "
     );
     let timeOfDay;
     if (date > sunrise && date < dawn) {
@@ -116,7 +118,7 @@ function App() {
       params: {
         lat: lat,
         long: lon,
-        apiKey: process.env.REACT_APP_API_KEY,
+        apiKey: "dfc30544cd064a2fbb4015ca4b8cef07",
       },
     })
       .then((response) => {

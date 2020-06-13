@@ -24,7 +24,6 @@ export const Weather = (props) => {
 
   const STATUS = "";
 
-  /*//FCC gets Weather Data from http://api.openweathermap.org waiting for API KEY to be activated
   function showWeather() {
     axios({
       method: "get",
@@ -33,41 +32,8 @@ export const Weather = (props) => {
       params: {
         lat: lat,
         lon: lon,
-        units: metric,
-        appid: process.env.API_KEY,
-      },
-    })
-      .then((response) => {
-        console.log("weather data");
-        const data = response.data;
-
-        setTemp(data.main.temp);
-        setHumidity(data.main.humidity);
-        setPressure(data.main.pressure);
-        setWindSpeed(data.wind.speed);
-        setCloudCover(data.clouds.all);
-        setWeatherDescript(data.weather[0].description);
-        setSunrise(data.sys.sunrise);
-        setSunset(data.sys.sunset);
-
-        changeImage(data.weather[0].id);
-        changeWeatherTheme(data.weather[0].main);
-        changeDayNight(data.sys.sunrise, data.sys.sunset);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }*/
-
-  //fcc makes the call in metric
-  function showWeather() {
-    axios({
-      method: "get",
-      url:
-        "https://cors-anywhere-hhm.herokuapp.com/https://fcc-weather-api.glitch.me/api/current",
-      params: {
-        lat: lat,
-        lon: lon,
+        units: "metric",
+        appid: "9761974d8e7e1a1d192323f66e2d03d9",
       },
     })
       .then((response) => {
