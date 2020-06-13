@@ -47,7 +47,7 @@ export const Covid19 = (props) => {
     return (
       <div className="CovidInfo">
         <button className="getCovid" onClick={covidData}>
-          Get Covid-19 info
+          Hide COVID-19 data
         </button>
         <div className="location">{countryCode.country}</div>
         <ul className="latestCovid">
@@ -69,7 +69,7 @@ export const Covid19 = (props) => {
   } else if (Object.keys(countryCode).length > 0) {
     return (
       <button className="getCovid" onClick={covidData}>
-        Covid-19 in {countryCode.country}
+        show COVID-19 data in {countryCode.country}
       </button>
     );
   } else {

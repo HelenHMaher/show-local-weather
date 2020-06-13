@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import getCountryName from "./countryCode";
 
 export const Location = (props) => {
   const {
@@ -62,11 +63,13 @@ export const Location = (props) => {
     })
       .then((response) => {
         console.log("geolocation");
+        getCountryName(tempCountry, getCountryCode);
         setCity(tempCity);
         setCountry(tempCountry);
         setTempCity("");
         setTempCountry("");
         if (response.data.features.length >= 1) {
+          console.log(response);
           submitLatLon(response.data.features[0]);
           setPlaceName(response.data.features[0].properties.display_name);
         } else {
