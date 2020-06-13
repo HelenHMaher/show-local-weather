@@ -112,12 +112,11 @@ function App() {
   function getTimeZone(lat, lon) {
     axios({
       method: "get",
-      url:
-        "https://cors-anywhere-hhm.herokuapp.com/https://api.ipgeolocation.io/timezone",
+      url: "https://api.ipgeolocation.io/timezone",
       params: {
         lat: lat,
         long: lon,
-        apiKey: process.env.API_KEY_TIME_ZONE,
+        apiKey: process.env.REACT_APP_API_KEY,
       },
     })
       .then((response) => {
