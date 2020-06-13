@@ -6,6 +6,7 @@ import Location from "./Components/location/location";
 import Weather from "./Components/weather/weather";
 import Footer from "./Components/footer/footer";
 import MainDisplay from "./Components/mainDisplay/mainDisplay";
+import Covid19 from "./Components/covid-19/covid-19";
 import axios from "axios";
 import moment from "moment";
 
@@ -18,9 +19,12 @@ function App() {
   const [dayNight, setDayNight] = useState("");
   const [timeZone, setTimeZone] = useState(null);
   const [date, setDate] = useState(null);
+  const [countryCode, setCountryCode] = useState({});
   const [image, setImage] = useState(
     `https://openweathermap.org/img/wn/01n@2x.png`
   );
+
+  const STATUS = "";
 
   function changeImage(img, timeOfDay) {
     const idCode = img;
@@ -109,7 +113,6 @@ function App() {
     changeImage(img, timeOfDay);
   }
 
-  //IS MY CORS PROXY STRIPPING THE API KEY OUT OF MY REQUEST???
   //set time zone
   function getTimeZone(lat, lon) {
     axios({
@@ -131,6 +134,10 @@ function App() {
       });
   }
 
+  function getCountryCode(countryCode, country) {
+    setCountryCode({ countryCode: countryCode, country: country });
+  }
+
   //change weather theme
   function changeWeatherTheme(input) {
     setWeatherTheme(input);
@@ -142,7 +149,9 @@ function App() {
     const coordinates = input.geometry.coordinates;
     setLatitude(coordinates[1]);
     setLongitude(coordinates[0]);
-    getTimeZone(coordinates[1], coordinates[0]);
+    if (STATUS !== "development") {
+      getTimeZone(coordinates[1], coordinates[0]);
+    }
     setHaveMyLocation(true);
   }
 
@@ -162,7 +171,9 @@ function App() {
         };
         setLatitude(result.lat);
         setLongitude(result.lon);
-        getTimeZone(result.lat, result.lon);
+        if (STATUS !== "development") {
+          getTimeZone(result.lat, result.lon);
+        }
         console.log("location data");
         setHaveMyLocation(true);
       });
@@ -193,6 +204,7 @@ function App() {
             submitLatLon={submitLatLon}
             haveMyLocation={haveMyLocation}
             date={date}
+            getCountryCode={getCountryCode}
           />
 
           <MainDisplay
@@ -210,6 +222,7 @@ function App() {
             haveMyLocation={haveMyLocation}
             changeDayNight={changeDayNight}
           />
+          <Covid19 countryCode={countryCode} date={date} />
           <Footer />
         </div>
       </>

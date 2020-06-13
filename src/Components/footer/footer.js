@@ -13,14 +13,6 @@ export const Footer = () => {
             rel="noopener noreferrer"
           >
             Nominatium
-          </a>{" "}
-          a service of{" "}
-          <a
-            href="https://www.openstreetmap.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            OpenStreetMap.org
           </a>
         </li>
         <li>
@@ -31,14 +23,26 @@ export const Footer = () => {
             rel="noopener noreferrer"
           >
             OpenWeatherMap.org
-          </a>{" "}
-          and{" "}
+          </a>
+        </li>
+        <li>
+          time zone data powered by{" "}
           <a
-            href="https://www.freecodecamp.org/"
+            href="https://ipgeolocation.io/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            FreeCodeCamp.org
+            ipgeolocation
+          </a>
+        </li>
+        <li>
+          COVID-19 data powered by{" "}
+          <a
+            href="https://covid19-api.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            COVID-19 API
           </a>
         </li>
       </ul>

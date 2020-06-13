@@ -10,6 +10,7 @@ export const Location = (props) => {
     submitGetLocation,
     submitLatLon,
     haveMyLocation,
+    getCountryCode,
   } = props;
 
   const [city, setCity] = useState("");
@@ -29,12 +30,16 @@ export const Location = (props) => {
         lat: lat,
         lon: lon,
         format: "json",
-        zoom: "14",
+        //zoom: "14",
       },
     })
       .then((response) => {
         setCity(response.data.address.borough);
         setCountry(response.data.address.country);
+        getCountryCode(
+          response.data.address.country_code,
+          response.data.address.country
+        );
         //console.log(response);
         console.log("reverse Geolocation");
       })
@@ -143,4 +148,5 @@ Location.propTypes = {
   lat: PropTypes.number,
   lon: PropTypes.number,
   haveMyLocation: PropTypes.bool,
+  getCountryCode: PropTypes.func,
 };
