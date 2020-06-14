@@ -1,6 +1,7 @@
 export const theme = {
   mobile: "576px",
-  yellow: "#fdf003",
-  green: "#00a45d",
-  blue: "#0266b1",
+  skyBlue: "#87CEEB",
+  orangeDawn: "#F8B195",
+  purpleDusk: "#6C5B7B",
+  nightBlue: "#355C7D",
 };

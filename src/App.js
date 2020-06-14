@@ -36,14 +36,13 @@ function App() {
     setWeatherTheme("");
     setDayNight("");
     setTimeZone(null);
-    setDate(null);
     setCountryCode({ countryCode: "", country: "" });
     setImage(`https://openweathermap.org/img/wn/01n@2x.png`);
-    setClearData();
+    setClear(true);
   }
 
   function setClearData() {
-    setClear(!clear);
+    setClear(false);
   }
 
   function changeImage(img, timeOfDay) {
@@ -211,7 +210,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <>
-        <GlobalStyles />
+        <GlobalStyles dayNight={dayNight} />
         <div className="App">
           <header className="App-header">
             <p>Local Weather Report</p>

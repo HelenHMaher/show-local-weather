@@ -8,7 +8,14 @@ html {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   color: white;
-  background: black;
+  background: ${({ dayNight }) =>
+    dayNight === "day"
+      ? "#87CEEB"
+      : dayNight === "dawn"
+      ? "#F8B195"
+      : dayNight === "dusk"
+      ? "#6C5B7B"
+      : "#355C7D"};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

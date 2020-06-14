@@ -4,8 +4,7 @@ import moment from "moment";
 
 export const MainDisplay = (props) => {
   const { weatherTheme, image, date, timeZone, dayNight } = props;
-
-  if (dayNight.lenght > 0) {
+  if (dayNight) {
     return (
       <div className="mainWeather">
         {dayNight}
