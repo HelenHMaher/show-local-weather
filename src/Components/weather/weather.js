@@ -113,16 +113,14 @@ export const Weather = (props) => {
             {moment
               .unix(sunrise + timeZone * 60 * 60)
               .utc()
-              .format("HH:mm")}{" "}
-            (local time)
+              .format("h:mm a")}
           </li>
           <li>
             <span className="label">Sunset</span>{" "}
             {moment
               .unix(sunset + timeZone * 60 * 60)
               .utc()
-              .format("HH:mm")}{" "}
-            (local time)
+              .format("h:mm a")}
           </li>
         </ul>
       </StyledWeather>

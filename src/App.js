@@ -183,6 +183,7 @@ function App() {
   function submitGetLocation() {
     setMyLocation(!getMyLocation);
     setHaveMyLocation(false);
+    clearData();
   }
 
   //get geolocation data

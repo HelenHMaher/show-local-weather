@@ -24,6 +24,11 @@ export const Location = (props) => {
 
   const STATUS = "";
 
+  function clearPlaceName() {
+    setPlaceName("");
+    submitGetLocation();
+  }
+
   function showCity() {
     axios({
       method: "get",
@@ -95,7 +100,7 @@ export const Location = (props) => {
 
   if (getMyLocation) {
     return (
-      <StyledLocation country={country}>
+      <StyledLocation placeName={placeName} country={country}>
         <div className="displayLocation">
           <h2>
             {city}, {country}
@@ -120,7 +125,7 @@ export const Location = (props) => {
     );
   } else {
     return (
-      <StyledLocation country={country}>
+      <StyledLocation placeName={placeName} country={country}>
         <form className="getLocationForm" onSubmit={handleSubmit}>
           <label htmlFor="cityInput">City </label>
           <input
@@ -143,7 +148,7 @@ export const Location = (props) => {
           />
           <br />
           <input type="submit" />
-          <button className="getLocation" onClick={submitGetLocation}>
+          <button className="getLocation" onClick={clearPlaceName}>
             Get my Location
           </button>
         </form>

@@ -17,7 +17,7 @@ export const MainDisplay = (props) => {
           {moment
             .unix(date + timeZone * 60 * 60)
             .utc()
-            .format("dddd, MMMM Do YYYY, HH:mm")}
+            .format("dddd, MMMM Do YYYY, h:mm a")}
         </div>
       </MainDisplayStyled>
     );

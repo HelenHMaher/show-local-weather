@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import moment from "moment";
@@ -10,6 +10,12 @@ export const Covid19 = (props) => {
   const [showCovid, setShowCovid] = useState(false);
   const [latestCovid, setLatestCovid] = useState({});
   const [previousCovid, setPreviousCovid] = useState({});
+
+  useEffect(() => {
+    if (countryCode.countryCode.length !== 2) {
+      setShowCovid(false);
+    }
+  }, [countryCode]);
 
   function covidData() {
     if (!showCovid && countryCode.countryCode.length === 2) {
@@ -55,7 +61,10 @@ export const Covid19 = (props) => {
           <li>
             <span className="label">Current</span>
           </li>
-          <li>Updated: {latestCovid.last_update}</li>
+          <li>
+            Updated:{" "}
+            {moment(latestCovid.last_update).utc().format("MMM D[,] YYYY")}
+          </li>
           <li>cases: {latestCovid.cases}</li>
           <li>recovered: {latestCovid.recovered}</li>
           <li>deaths: {latestCovid.deaths}</li>
@@ -64,7 +73,10 @@ export const Covid19 = (props) => {
           <li>
             <span className="label">Last 7 days</span>
           </li>
-          <li>Changes as of: {previousCovid.last_update}</li>
+          <li>
+            Changes as of:{" "}
+            {moment(previousCovid.last_update).utc().format("MMM D[,] YYYY")}
+          </li>
           <li>cases: +{latestCovid.cases - previousCovid.cases}</li>
           <li>recovered: +{latestCovid.recovered - previousCovid.recovered}</li>
           <li>deaths: +{latestCovid.deaths - previousCovid.deaths}</li>

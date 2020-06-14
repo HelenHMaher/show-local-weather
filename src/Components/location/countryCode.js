@@ -252,7 +252,7 @@ const isoCountries = {
 
 export function getCountryName(country, getCountryCode) {
   const code = Object.keys(isoCountries).find(
-    (key) => isoCountries[key] === country
+    (key) => isoCountries[key].toLowerCase() === country.toLowerCase()
   );
   getCountryCode(code, country);
 }

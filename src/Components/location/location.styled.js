@@ -48,6 +48,7 @@ export const StyledLocation = styled.section`
 
   .displayLocation {
     font-size: 14px;
-    visibility: ${({ country }) => (country === "" ? "hidden" : "visible")};
+    visibility: ${({ placeName, country }) =>
+      placeName === "" && country === "" ? "hidden" : "visible"};
   }
 `;
