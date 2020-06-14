@@ -16,6 +16,7 @@ app.get("/heartbeat", function (req, res) {
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
+//create 2 routes that adds the API key for
 
 // start the server listening for requests
 app.listen(process.env.PORT || 3000, () => console.log("Server is running..."));

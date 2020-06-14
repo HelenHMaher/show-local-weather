@@ -11,7 +11,7 @@ export const Covid19 = (props) => {
   const [previousCovid, setPreviousCovid] = useState({});
 
   function covidData() {
-    if (!showCovid) {
+    if (!showCovid && countryCode.countryCode.length === 2) {
       const formatedDate = moment.unix(date - 604800).format("YYYY-MM-DD");
       axios({
         method: "get",
@@ -43,7 +43,7 @@ export const Covid19 = (props) => {
     }
     setShowCovid(!showCovid);
   }
-  if (showCovid) {
+  if (showCovid && countryCode.countryCode.length === 2) {
     return (
       <div className="CovidInfo">
         <button className="getCovid" onClick={covidData}>
@@ -66,14 +66,14 @@ export const Covid19 = (props) => {
         </ul>
       </div>
     );
-  } else if (Object.keys(countryCode).length > 0) {
+  } else if (countryCode.countryCode.length === 2) {
     return (
       <button className="getCovid" onClick={covidData}>
         show COVID-19 data in {countryCode.country}
       </button>
     );
   } else {
-    return <div>{countryCode.country}</div>;
+    return <div>no COVID-19 data found</div>;
   }
 };
 

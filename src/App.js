@@ -19,12 +19,32 @@ function App() {
   const [dayNight, setDayNight] = useState("");
   const [timeZone, setTimeZone] = useState(null);
   const [date, setDate] = useState(null);
-  const [countryCode, setCountryCode] = useState({});
+  const [countryCode, setCountryCode] = useState({
+    countryCode: "",
+    country: "",
+  });
+  const [clear, setClear] = useState(false);
   const [image, setImage] = useState(
     `https://openweathermap.org/img/wn/01n@2x.png`
   );
 
   const STATUS = "";
+
+  function clearData() {
+    setLatitude(null);
+    setLongitude(null);
+    setWeatherTheme("");
+    setDayNight("");
+    setTimeZone(null);
+    setDate(null);
+    setCountryCode({ countryCode: "", country: "" });
+    setImage(`https://openweathermap.org/img/wn/01n@2x.png`);
+    setClearData();
+  }
+
+  function setClearData() {
+    setClear(!clear);
+  }
 
   function changeImage(img, timeOfDay) {
     const idCode = img;
@@ -205,6 +225,7 @@ function App() {
             haveMyLocation={haveMyLocation}
             date={date}
             getCountryCode={getCountryCode}
+            clearData={clearData}
           />
 
           <MainDisplay
@@ -221,6 +242,8 @@ function App() {
             lon={longitude}
             haveMyLocation={haveMyLocation}
             changeDayNight={changeDayNight}
+            clear={clear}
+            setClearData={setClearData}
           />
           <Covid19 countryCode={countryCode} date={date} />
           <Footer />

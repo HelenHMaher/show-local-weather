@@ -12,6 +12,7 @@ export const Location = (props) => {
     submitLatLon,
     haveMyLocation,
     getCountryCode,
+    clearData,
   } = props;
 
   const [city, setCity] = useState("");
@@ -50,6 +51,10 @@ export const Location = (props) => {
   }
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    clearData();
+    setCity("");
+    setCountry("");
+    setPlaceName("");
 
     axios({
       method: "get",
@@ -62,14 +67,14 @@ export const Location = (props) => {
       },
     })
       .then((response) => {
-        console.log("geolocation");
-        getCountryName(tempCountry, getCountryCode);
-        setCity(tempCity);
-        setCountry(tempCountry);
-        setTempCity("");
-        setTempCountry("");
         if (response.data.features.length >= 1) {
-          console.log(response);
+          console.log("geolocation");
+          getCountryName(tempCountry, getCountryCode);
+          setCity(tempCity);
+          setCountry(tempCountry);
+          setTempCity("");
+          setTempCountry("");
+          //console.log(response);
           submitLatLon(response.data.features[0]);
           setPlaceName(response.data.features[0].properties.display_name);
         } else {
@@ -152,4 +157,5 @@ Location.propTypes = {
   lon: PropTypes.number,
   haveMyLocation: PropTypes.bool,
   getCountryCode: PropTypes.func,
+  clearData: PropTypes.func,
 };
