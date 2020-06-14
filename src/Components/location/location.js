@@ -14,6 +14,7 @@ export const Location = (props) => {
     haveMyLocation,
     getCountryCode,
     clearData,
+    clear,
   } = props;
 
   const [city, setCity] = useState("");
@@ -107,6 +108,10 @@ export const Location = (props) => {
       showCity();
     }
   }, [haveMyLocation]);
+
+  useEffect(() => {
+    if (clear) setCountry("");
+  }, [clear]);
 
   if (getMyLocation) {
     return (
@@ -210,4 +215,5 @@ Location.propTypes = {
   haveMyLocation: PropTypes.bool,
   getCountryCode: PropTypes.func,
   clearData: PropTypes.func,
+  clear: PropTypes.bool,
 };

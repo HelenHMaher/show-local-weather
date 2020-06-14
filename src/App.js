@@ -232,6 +232,7 @@ function App() {
             date={date}
             getCountryCode={getCountryCode}
             clearData={clearData}
+            clear={clear}
           />
 
           <MainDisplay
