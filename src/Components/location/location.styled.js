@@ -28,14 +28,24 @@ export const StyledLocation = styled.section`
     }
   }
 
+  #submit {
+    margin-right: 10px;
+  }
+  .getLocation {
+    margin-right: 20px;
+  }
+
   form {
     display: block;
+    max-width: 370px;
   }
   .input {
     cursor: text;
     display: block;
   }
-
+  .inputSet {
+    display: inline-block;
+  }
   ul {
     list-style-type: none;
     padding: 0;

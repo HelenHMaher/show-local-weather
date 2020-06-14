@@ -137,39 +137,48 @@ export const Location = (props) => {
     return (
       <StyledLocation placeName={placeName} country={country}>
         <form className="getLocationForm" onSubmit={handleSubmit}>
-          <label htmlFor="countryInput">Country </label>
-          <input
-            value={tempCountry}
-            name="countryInput"
-            className="input"
-            placeholder="country**"
-            required
-            onChange={(e) => setTempCountry(e.target.value)}
-          />
-          <br />
-          <label htmlFor="cityInput">City </label>
-          <input
-            value={tempCity}
-            name="cityInput"
-            className="input"
-            placeholder="city"
-            onChange={(e) => setTempCity(e.target.value)}
-          />
-          <br />
-          <label htmlFor="countryInput">Postal Code </label>
-          <input
-            value={tempPostalCode}
-            name="postalCodeInput"
-            className="input"
-            placeholder="postal code"
-            onChange={(e) => setTempPostalCode(e.target.value)}
-          />
-          <br />
-          <input type="submit" />
-          <button className="getLocation" onClick={clearPlaceName}>
-            Get my Location
-          </button>
+          <div className="inputSet">
+            <label htmlFor="countryInput">Country </label>
+            <input
+              value={tempCountry}
+              name="countryInput"
+              className="input"
+              placeholder="country**"
+              required
+              onChange={(e) => setTempCountry(e.target.value)}
+            />
+            <br />
+          </div>
+          <div className="inputSet">
+            <label htmlFor="cityInput">City </label>
+            <input
+              value={tempCity}
+              name="cityInput"
+              className="input"
+              placeholder="city"
+              onChange={(e) => setTempCity(e.target.value)}
+            />
+            <br />
+          </div>
+          <div className="inputSet">
+            <label htmlFor="countryInput">Postal Code </label>
+            <input
+              value={tempPostalCode}
+              name="postalCodeInput"
+              className="input"
+              placeholder="postal code"
+              onChange={(e) => setTempPostalCode(e.target.value)}
+            />
+            <br />
+          </div>
+          <div className="inputSet">
+            <input id="submit" type="submit" />
+            <button className="getLocation" onClick={clearPlaceName}>
+              Get my Location
+            </button>
+          </div>
         </form>
+
         <div className="displayLocation">
           <h2>{placeName}</h2>
         </div>
