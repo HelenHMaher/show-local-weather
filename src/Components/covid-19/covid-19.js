@@ -12,7 +12,7 @@ export const Covid19 = (props) => {
   const [previousCovid, setPreviousCovid] = useState({});
 
   useEffect(() => {
-    if (countryCode.countryCode.length !== 2) {
+    if (!countryCode.countryCode) {
       setShowCovid(false);
     }
   }, [countryCode]);
@@ -50,7 +50,7 @@ export const Covid19 = (props) => {
     }
     setShowCovid(!showCovid);
   }
-  if (showCovid && countryCode.countryCode.length === 2) {
+  if (showCovid && countryCode.countryCode) {
     return (
       <StyledCovid19>
         <button className="getCovid" onClick={covidData}>
@@ -83,7 +83,7 @@ export const Covid19 = (props) => {
         </ul>
       </StyledCovid19>
     );
-  } else if (countryCode.countryCode.length === 2) {
+  } else if (countryCode.countryCode) {
     return (
       <StyledCovid19>
         <button className="getCovid" onClick={covidData}>

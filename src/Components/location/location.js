@@ -20,6 +20,7 @@ export const Location = (props) => {
   const [country, setCountry] = useState("");
   const [tempCity, setTempCity] = useState("");
   const [tempCountry, setTempCountry] = useState("");
+  const [tempPostalCode, setTempPostalCode] = useState("");
   const [placeName, setPlaceName] = useState("");
 
   const STATUS = "";
@@ -27,6 +28,11 @@ export const Location = (props) => {
   function clearPlaceName() {
     setPlaceName("");
     submitGetLocation();
+  }
+
+  function getNewCountry(code, country) {
+    getCountryCode(code, country);
+    setCountry(country);
   }
 
   function showCity() {
@@ -66,21 +72,25 @@ export const Location = (props) => {
       method: "get",
       url:
         "https://cors-anywhere-hhm.herokuapp.com/https://nominatim.openstreetmap.org/search",
-      params: {
-        country: tempCountry,
-        city: tempCity,
-        format: "geojson",
-      },
+      params: tempPostalCode
+        ? {
+            country: tempCountry,
+            postalcode: tempPostalCode,
+            format: "geojson",
+          }
+        : tempCity
+        ? { country: tempCountry, city: tempCity, format: "geojson" }
+        : { country: tempCountry, format: "geojson" },
     })
       .then((response) => {
         if (response.data.features.length >= 1) {
           console.log("geolocation");
-          getCountryName(tempCountry, getCountryCode);
-          setCity(tempCity);
-          setCountry(tempCountry);
+          getCountryName(tempCountry, getNewCountry);
+          setCity(tempCity.toUpperCase());
           setTempCity("");
           setTempCountry("");
-          //console.log(response);
+          setTempPostalCode("");
+          console.log(response);
           submitLatLon(response.data.features[0]);
           setPlaceName(response.data.features[0].properties.display_name);
         } else {
@@ -127,24 +137,32 @@ export const Location = (props) => {
     return (
       <StyledLocation placeName={placeName} country={country}>
         <form className="getLocationForm" onSubmit={handleSubmit}>
+          <label htmlFor="countryInput">Country </label>
+          <input
+            value={tempCountry}
+            name="countryInput"
+            className="input"
+            placeholder="country**"
+            required
+            onChange={(e) => setTempCountry(e.target.value)}
+          />
+          <br />
           <label htmlFor="cityInput">City </label>
           <input
             value={tempCity}
             name="cityInput"
             className="input"
             placeholder="city"
-            required
             onChange={(e) => setTempCity(e.target.value)}
           />
           <br />
-          <label htmlFor="countryInput">Country </label>
+          <label htmlFor="countryInput">Postal Code </label>
           <input
-            value={tempCountry}
-            name="countryInput"
+            value={tempPostalCode}
+            name="postalCodeInput"
             className="input"
-            placeholder="country"
-            required
-            onChange={(e) => setTempCountry(e.target.value)}
+            placeholder="postal code"
+            onChange={(e) => setTempPostalCode(e.target.value)}
           />
           <br />
           <input type="submit" />

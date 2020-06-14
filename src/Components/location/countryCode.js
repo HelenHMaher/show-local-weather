@@ -250,11 +250,11 @@ const isoCountries = {
   ZW: "Zimbabwe",
 };
 
-export function getCountryName(country, getCountryCode) {
+export function getCountryName(country, getNewCountry) {
   const code = Object.keys(isoCountries).find(
     (key) => isoCountries[key].toLowerCase() === country.toLowerCase()
   );
-  getCountryCode(code, country);
+  getNewCountry(code, isoCountries[code]);
 }
 
 export default getCountryName;
