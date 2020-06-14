@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
-export const StyledLocation = styled.section`
+export const StyledCovid19 = styled.section`
   padding: 5px 5px;
   font-size: 14px;
   width: 90%;
 
-  input,
   button {
     all: unset;
     margin-right: 20px;
@@ -28,26 +27,17 @@ export const StyledLocation = styled.section`
     }
   }
 
-  form {
-    display: block;
-  }
-  .input {
-    cursor: text;
-    display: block;
-  }
-
   ul {
     list-style-type: none;
     padding: 0;
   }
-  .label,
-  label {
+  .label {
     font-size: 20px;
     padding-right: 5px;
   }
 
-  .displayLocation {
-    font-size: 14px;
-    visibility: ${({ country }) => (country === "" ? "hidden" : "visible")};
+  .location {
+    margin-top: 10px;
+    font-size: 30px;
   }
 `;

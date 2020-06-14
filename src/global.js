@@ -29,6 +29,7 @@ html {
   background: rgba(128, 128, 128, .5);
   border-radius: 5px;
   padding: 5px;
+  min-width: 320px;
 }
 
 .App-header {

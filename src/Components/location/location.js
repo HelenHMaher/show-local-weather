@@ -95,53 +95,72 @@ export const Location = (props) => {
 
   if (getMyLocation) {
     return (
-      <StyledLocation className="location">
+      <StyledLocation country={country}>
+        <div className="displayLocation">
+          <h2>
+            {city}, {country}
+          </h2>
+        </div>
+        <div className="locationDetails">
+          <ul>
+            <li>
+              <span className="label">Latitude </span>
+              {lat}
+            </li>
+            <li>
+              <span className="label">Longitude </span>
+              {lon}
+            </li>
+          </ul>
+        </div>
         <button className="getLocation" onClick={submitGetLocation}>
           Choose a Location
         </button>
-        <div className="latAndLon">
-          Latitude: {lat} Longitude: {lon}
-        </div>
-        <div className="city">
-          City: {city} Country: {country}
-        </div>
       </StyledLocation>
     );
   } else {
     return (
-      <StyledLocation className="location">
-        <button className="getLocation" onClick={submitGetLocation}>
-          Get my Location
-        </button>
-        <div className="latAndLon">
-          Latitude: {lat} Longitude: {lon}
-        </div>
+      <StyledLocation country={country}>
         <form className="getLocationForm" onSubmit={handleSubmit}>
-          <label htmlFor="cityInput">City: </label>
+          <label htmlFor="cityInput">City </label>
           <input
             value={tempCity}
             name="cityInput"
-            id="cityInput"
+            className="input"
             placeholder="city"
             required
             onChange={(e) => setTempCity(e.target.value)}
           />
-          <label htmlFor="countryInput">Country: </label>
+          <br />
+          <label htmlFor="countryInput">Country </label>
           <input
             value={tempCountry}
             name="countryInput"
-            id="countryInput"
+            className="input"
             placeholder="country"
             required
             onChange={(e) => setTempCountry(e.target.value)}
           />
+          <br />
           <input type="submit" />
+          <button className="getLocation" onClick={submitGetLocation}>
+            Get my Location
+          </button>
         </form>
         <div className="displayLocation">
-          <div id="inputed name">
-            <h1>{city}</h1> <h2>{country}</h2>
-          </div>
-          <h5>{placeName}</h5>
+          <h2>{placeName}</h2>
+        </div>
+        <div className="locationDetails">
+          <ul>
+            <li>
+              <span className="label">Latitude </span>
+              {lat}
+            </li>
+            <li>
+              <span className="label">Longitude </span>
+              {lon}
+            </li>
+          </ul>
         </div>
       </StyledLocation>
     );

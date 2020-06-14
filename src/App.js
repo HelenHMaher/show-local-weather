@@ -15,8 +15,8 @@ function App() {
   const [haveMyLocation, setHaveMyLocation] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const [weatherTheme, setWeatherTheme] = useState("Clouds");
-  const [dayNight, setDayNight] = useState("day");
+  const [weatherTheme, setWeatherTheme] = useState("");
+  const [dayNight, setDayNight] = useState("");
   const [timeZone, setTimeZone] = useState(null);
   const [date, setDate] = useState(null);
   const [countryCode, setCountryCode] = useState({

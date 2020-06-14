@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import moment from "moment";
+import { StyledCovid19 } from "./covid-19.styled";
 
 export const Covid19 = (props) => {
   const { countryCode, date } = props;
@@ -45,32 +46,38 @@ export const Covid19 = (props) => {
   }
   if (showCovid && countryCode.countryCode.length === 2) {
     return (
-      <div className="CovidInfo">
+      <StyledCovid19>
         <button className="getCovid" onClick={covidData}>
           Hide COVID-19 data
         </button>
         <div className="location">{countryCode.country}</div>
         <ul className="latestCovid">
-          <li>Current</li>
+          <li>
+            <span className="label">Current</span>
+          </li>
           <li>Updated: {latestCovid.last_update}</li>
           <li>cases: {latestCovid.cases}</li>
           <li>recovered: {latestCovid.recovered}</li>
           <li>deaths: {latestCovid.deaths}</li>
         </ul>
         <ul className="previousCovid">
-          <li>Changes in the last 7 days</li>
-          <li>Updated: {previousCovid.last_update}</li>
+          <li>
+            <span className="label">Last 7 days</span>
+          </li>
+          <li>Changes as of: {previousCovid.last_update}</li>
           <li>cases: +{latestCovid.cases - previousCovid.cases}</li>
           <li>recovered: +{latestCovid.recovered - previousCovid.recovered}</li>
           <li>deaths: +{latestCovid.deaths - previousCovid.deaths}</li>
         </ul>
-      </div>
+      </StyledCovid19>
     );
   } else if (countryCode.countryCode.length === 2) {
     return (
-      <button className="getCovid" onClick={covidData}>
-        show COVID-19 data in {countryCode.country}
-      </button>
+      <StyledCovid19>
+        <button className="getCovid" onClick={covidData}>
+          show COVID-19 data in {countryCode.country}
+        </button>
+      </StyledCovid19>
     );
   } else {
     return <div>{countryCode.countryCode}</div>;
