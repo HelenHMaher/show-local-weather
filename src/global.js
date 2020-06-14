@@ -10,23 +10,33 @@ html {
   color: white;
   background: ${({ dayNight }) =>
     dayNight === "day"
-      ? "#87CEEB"
+      ? "#00B8F6"
       : dayNight === "dawn"
-      ? "#F8B195"
+      ? "#FA7B62"
       : dayNight === "dusk"
       ? "#6C5B7B"
-      : "#355C7D"};
+      : dayNight === "night"
+      ? "#355C7D"
+      : "grey"};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+.App {
+  margin: 5px;
+  background: rgba(128, 128, 128, .5);
+  border-radius: 5px;
+  padding: 5px;
 }
 
-a {
-  color: lightgrey;
-  text-decoration: none;
-}
-
-li {
-  list-style-type: none;
+.App-header {
+  padding: 0 5px;
+  font-size: 50px;
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    font-size: 30px;
+  }
 }
 
 `;

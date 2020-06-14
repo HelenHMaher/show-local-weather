@@ -1,8 +1,9 @@
 import React from "react";
+import { StyledFooter } from "./footer.styled";
 
 export const Footer = () => {
   return (
-    <footer className="App-footer">
+    <StyledFooter className="App-footer">
       <ul>
         <li>coded by Helen Maher</li>
         <li>
@@ -46,7 +47,7 @@ export const Footer = () => {
           </a>
         </li>
       </ul>
-    </footer>
+    </StyledFooter>
   );
 };
 

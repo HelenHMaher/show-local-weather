@@ -16,7 +16,7 @@ function App() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [weatherTheme, setWeatherTheme] = useState("");
-  const [dayNight, setDayNight] = useState("");
+  const [dayNight, setDayNight] = useState("day");
   const [timeZone, setTimeZone] = useState(null);
   const [date, setDate] = useState(null);
   const [countryCode, setCountryCode] = useState({
@@ -28,7 +28,7 @@ function App() {
     `https://openweathermap.org/img/wn/01n@2x.png`
   );
 
-  const STATUS = "";
+  const STATUS = "development";
 
   function clearData() {
     setLatitude(null);
@@ -109,15 +109,20 @@ function App() {
         moment.unix(sunrise).utc().format() +
         " (" +
         sunrise +
-        ") " +
-        " sunset: " +
+        ") sunset: " +
         moment.unix(sunset).utc().format() +
         " (" +
         sunset +
-        ") "
+        ") time: " +
+        moment.unix(date).utc().format() +
+        " (" +
+        date +
+        ")"
     );
     let timeOfDay;
-    if (date > sunrise && date < dawn) {
+    if (date < sunrise) {
+      timeOfDay = "night";
+    } else if (date > sunrise && date < dawn) {
       timeOfDay = "dawn";
     } else if (date > dawn && date < dusk) {
       timeOfDay = "day";

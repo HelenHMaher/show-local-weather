@@ -23,7 +23,7 @@ export const Weather = (props) => {
   const [sunrise, setSunrise] = useState(null);
   const [sunset, setSunset] = useState(null);
 
-  const STATUS = "";
+  const STATUS = "development";
 
   function showWeather() {
     axios({
