@@ -22,7 +22,7 @@ export const Location = (props) => {
   const [tempCountry, setTempCountry] = useState("");
   const [placeName, setPlaceName] = useState("");
 
-  const STATUS = "development";
+  const STATUS = "";
 
   function showCity() {
     axios({

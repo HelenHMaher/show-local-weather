@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import moment from "moment";
+import { StyledWeather } from "./weather.styled";
 
 export const Weather = (props) => {
   const {
@@ -12,6 +13,7 @@ export const Weather = (props) => {
     changeDayNight,
     clear,
     setClearData,
+    timeZone,
   } = props;
 
   const [weatherDescript, setWeatherDescript] = useState("");
@@ -23,7 +25,7 @@ export const Weather = (props) => {
   const [sunrise, setSunrise] = useState(null);
   const [sunset, setSunset] = useState(null);
 
-  const STATUS = "development";
+  const STATUS = "";
 
   function showWeather() {
     axios({
@@ -86,21 +88,51 @@ export const Weather = (props) => {
 
   if (weatherDescript.length > 0) {
     return (
-      <div className="weather">
+      <StyledWeather className="weather">
         <ul className="weatherData">
-          <li>Description: {weatherDescript}</li>
-          <li>Temperature:{temp} &#176;C</li>
-          <li>Humidity: {humidity} &#37;</li>
-          <li>Pressure: {pressure} hpa</li>
-          <li>Wind Speed: {windSpeed} m/s</li>
-          <li>Cloud Cover: {cloudCover} &#37;</li>
-          <li>Sunrise: {moment.unix(sunrise).utc().format()} UTC</li>
-          <li>Sunset: {moment.unix(sunset).utc().format()} UTC</li>
+          <li>
+            <span className="label">Description</span> {weatherDescript}
+          </li>
+          <li>
+            <span className="label">Temperature</span> {temp} &#176;C
+          </li>
+          <li>
+            <span className="label">Humidity</span> {humidity} &#37;
+          </li>
+          <li>
+            <span className="label">Pressure</span> {pressure} hpa
+          </li>
+          <li>
+            <span className="label">Wind Speed</span> {windSpeed} m/s
+          </li>
+          <li>
+            <span className="label">Cloud Cover</span> {cloudCover} &#37;
+          </li>
+          <li>
+            <span className="label">Sunrise</span>{" "}
+            {moment
+              .unix(sunrise + timeZone * 60 * 60)
+              .utc()
+              .format("HH:mm")}{" "}
+            (local time)
+          </li>
+          <li>
+            <span className="label">Sunset</span>{" "}
+            {moment
+              .unix(sunset + timeZone * 60 * 60)
+              .utc()
+              .format("HH:mm")}{" "}
+            (local time)
+          </li>
         </ul>
-      </div>
+      </StyledWeather>
     );
   } else {
-    return <div className="loadingWeather">Loading weather data...</div>;
+    return (
+      <StyledWeather className="loadingWeather">
+        Loading weather data...
+      </StyledWeather>
+    );
   }
 };
 
@@ -114,4 +146,5 @@ Weather.propTypes = {
   changeDayNight: PropTypes.func,
   clear: PropTypes.bool,
   setClearData: PropTypes.func,
+  timeZone: PropTypes.number,
 };

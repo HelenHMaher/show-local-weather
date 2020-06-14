@@ -5,6 +5,7 @@ export const MainDisplayStyled = styled.section`
   font-size: 14px;
   width: 90%;
   .time {
+    text-align: center;
     font-size: 18px;
     padding: 5px;
     width: 100%;

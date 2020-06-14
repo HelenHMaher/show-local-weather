@@ -28,7 +28,7 @@ function App() {
     `https://openweathermap.org/img/wn/01n@2x.png`
   );
 
-  const STATUS = "development";
+  const STATUS = "";
 
   function clearData() {
     setLatitude(null);
@@ -249,6 +249,7 @@ function App() {
             changeDayNight={changeDayNight}
             clear={clear}
             setClearData={setClearData}
+            timeZone={timeZone}
           />
           <Covid19 countryCode={countryCode} date={date} />
           <Footer />
