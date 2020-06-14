@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import getCountryName from "./countryCode";
+import { StyledLocation } from "./location.styled";
 
 export const Location = (props) => {
   const {
@@ -94,7 +95,7 @@ export const Location = (props) => {
 
   if (getMyLocation) {
     return (
-      <div className="location">
+      <StyledLocation className="location">
         <button className="getLocation" onClick={submitGetLocation}>
           Choose a Location
         </button>
@@ -104,11 +105,11 @@ export const Location = (props) => {
         <div className="city">
           City: {city} Country: {country}
         </div>
-      </div>
+      </StyledLocation>
     );
   } else {
     return (
-      <div className="location">
+      <StyledLocation className="location">
         <button className="getLocation" onClick={submitGetLocation}>
           Get my Location
         </button>
@@ -142,7 +143,7 @@ export const Location = (props) => {
           </div>
           <h5>{placeName}</h5>
         </div>
-      </div>
+      </StyledLocation>
     );
   }
 };

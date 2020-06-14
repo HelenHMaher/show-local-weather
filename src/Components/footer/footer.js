@@ -4,6 +4,7 @@ import { StyledFooter } from "./footer.styled";
 export const Footer = () => {
   return (
     <StyledFooter className="App-footer">
+      <hr />
       <ul>
         <li>coded by Helen Maher</li>
         <li>

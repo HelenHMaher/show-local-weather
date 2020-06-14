@@ -73,7 +73,7 @@ export const Covid19 = (props) => {
       </button>
     );
   } else {
-    return <div>no COVID-19 data found</div>;
+    return <div>{countryCode.countryCode}</div>;
   }
 };
 

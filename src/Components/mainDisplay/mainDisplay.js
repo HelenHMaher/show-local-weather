@@ -1,21 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
+import { MainDisplayStyled } from "./mainDisplay.styled";
 
 export const MainDisplay = (props) => {
   const { weatherTheme, image, date, timeZone, dayNight } = props;
   if (dayNight) {
     return (
-      <div className="mainWeather">
-        {dayNight}
-        {weatherTheme}
-        <img alt="weather icon" src={image} />
-        {moment.unix(date).utc().format()}
-        Local Time Zone: {timeZone}
-      </div>
+      <MainDisplayStyled className="mainWeather">
+        <div className="weather">
+          <img alt="weather icon" src={image} />
+          <div className="weatherTheme">{weatherTheme}</div>
+          <div className="dayNight">({dayNight.toUpperCase()})</div>
+        </div>
+        <div className="time">
+          {moment
+            .unix(date + timeZone * 60 * 60)
+            .utc()
+            .format("dddd, MMMM Do YYYY, HH:mm")}
+        </div>
+      </MainDisplayStyled>
     );
   } else {
-    return <div>{dayNight}</div>;
+    return <MainDisplayStyled>{dayNight}</MainDisplayStyled>;
   }
 };
 

@@ -15,7 +15,7 @@ function App() {
   const [haveMyLocation, setHaveMyLocation] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const [weatherTheme, setWeatherTheme] = useState("");
+  const [weatherTheme, setWeatherTheme] = useState("Clouds");
   const [dayNight, setDayNight] = useState("day");
   const [timeZone, setTimeZone] = useState(null);
   const [date, setDate] = useState(null);
@@ -219,6 +219,7 @@ function App() {
         <div className="App">
           <header className="App-header">
             <p>Local Weather Report</p>
+            <hr />
           </header>
           <Location
             getMyLocation={getMyLocation}

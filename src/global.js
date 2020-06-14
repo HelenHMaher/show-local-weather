@@ -33,6 +33,7 @@ html {
 
 .App-header {
   padding: 0 5px;
+  line-height: 20px;
   font-size: 50px;
   @media (max-width: ${({ theme }) => theme.mobile}) {
     font-size: 30px;
