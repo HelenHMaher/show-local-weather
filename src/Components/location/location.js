@@ -15,6 +15,7 @@ export const Location = (props) => {
     getCountryCode,
     clearData,
     clear,
+    getPostalCode,
   } = props;
 
   const [city, setCity] = useState("");
@@ -45,7 +46,6 @@ export const Location = (props) => {
         lat: lat,
         lon: lon,
         format: "json",
-        //zoom: "14",
       },
     })
       .then((response) => {
@@ -55,6 +55,7 @@ export const Location = (props) => {
           response.data.address.country_code,
           response.data.address.country
         );
+        getPostalCode(response.data.address.postcode);
         //console.log(response);
         console.log("reverse Geolocation");
       })
@@ -216,4 +217,5 @@ Location.propTypes = {
   getCountryCode: PropTypes.func,
   clearData: PropTypes.func,
   clear: PropTypes.bool,
+  getPostalCode: PropTypes.func,
 };

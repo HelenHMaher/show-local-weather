@@ -23,12 +23,17 @@ function App() {
     countryCode: "",
     country: "",
   });
+  const [postalCode, setPostalCode] = useState(null);
   const [clear, setClear] = useState(false);
   const [image, setImage] = useState(
     `https://openweathermap.org/img/wn/01n@2x.png`
   );
 
   const STATUS = "";
+
+  function getPostalCode(input) {
+    setPostalCode(input);
+  }
 
   function clearData() {
     setLatitude(null);
@@ -233,6 +238,7 @@ function App() {
             getCountryCode={getCountryCode}
             clearData={clearData}
             clear={clear}
+            getPostalCode={getPostalCode}
           />
 
           <MainDisplay
@@ -253,7 +259,11 @@ function App() {
             setClearData={setClearData}
             timeZone={timeZone}
           />
-          <Covid19 countryCode={countryCode} date={date} />
+          <Covid19
+            countryCode={countryCode}
+            date={date}
+            postalCode={postalCode}
+          />
           <Footer />
         </div>
       </>

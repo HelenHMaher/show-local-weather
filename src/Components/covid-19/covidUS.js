@@ -1,21 +1,51 @@
-//"https://coronavirusapi.com/"
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import moment from "moment";
 
-"https://coronavirusapi.com/getTimeSeries/[stateAbbreviation]"
+export const CovidUS = (props) => {
+  const {} = props;
 
-function covidData() {
-    if (!showCovid) {
-      const formatedDate = moment.unix(date - 604800).format("YYYY-MM-DD");
-      axios({
-        method: "get",
-        url: ``
+  const [covidUSData, setCovidUSData] = useState({});
+
+  function covidData() {
+    axios({
+      method: "get",
+      url: `https://coronavirusapi.com/getTimeSeries/${stateAbbreviation]}`
+    })
+      .then((response) => {
+        let data = response.data;
+        setCovidUSData(data);
+        console.log(current);
       })
-        .then((response) => {
-          let current = response.data;
-          setLatestCovid(current);
-          //console.log(current);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    setShowCovid(!showCovid);
-  }
+      .catch((error) => {
+        console.log(error);
+      });
+}
+
+  return (
+    <div>
+      <ul className="latestCovid">
+        <li>Updated: </li>
+        <li>tested: </li>
+        <li>positive: </li>
+        <li>deaths: </li>
+      </ul>
+      <ul className="previousCovid">
+        <li>Updated: </li>
+        <li>tested: </li>
+        <li>positive: </li>
+        <li>deaths: </li>
+      </ul>
+    </div>
+  );
+};
+
+export default CovidUS;
+
+CovidUS.propTypes = {
+
+};
+
+
+
