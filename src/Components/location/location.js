@@ -89,6 +89,8 @@ export const Location = (props) => {
       .then((response) => {
         if (response.data.features.length >= 1) {
           console.log("geolocation");
+          if (tempPostalCode) getPostalCode(tempPostalCode);
+          //if (tempCity) setStateName(response.data.features[0].properties.display_name.split(", ")[2]);
           getCountryName(tempCountry, getNewCountry);
           setCity(tempCity.toUpperCase());
           setTempCity("");
