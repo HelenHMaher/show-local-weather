@@ -1,4 +1,4 @@
 1.  Work out kinks in retreiving stateName
-2.  option to change to UTC? or display temp in Fahrenheit?
-3.  HIDE API KEYS!!
-4.  button labels missing and geolocation unreliable on all browsers
+2.  HIDE API KEYS!!
+3.  button labels missing when displayed for Lindsay, set labels to html default hopefully this is fixed? I have no idea what could be causing the error
+4.  geolocation unreliable on some browsers

@@ -9,11 +9,10 @@ export const StyledLocation = styled.section`
   button {
     margin-right: 20px;
     background: white;
-    color: darkgrey;
-    border: 2px solid;
+    border: 4px solid;
     border-color: darkgrey;
-    border-radius: 5px;
-    padding: 3px;
+    border-radius: 15px;
+    padding: 3px 10px;
     font: inherit;
     cursor: pointer;
     outline: none;
