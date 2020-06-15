@@ -7,7 +7,6 @@ export const StyledLocation = styled.section`
 
   input,
   button {
-    all: unset;
     margin-right: 20px;
     background: white;
     color: darkgrey;

@@ -6,7 +6,6 @@ export const StyledCovid19 = styled.section`
   width: 90%;
 
   button {
-    all: unset;
     margin-right: 20px;
     background: white;
     color: darkgrey;

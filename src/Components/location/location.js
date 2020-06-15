@@ -132,7 +132,7 @@ export const Location = (props) => {
             </li>
           </ul>
         </div>
-        <button className="getLocation" onClick={submitGetLocation}>
+        <button className="getLocation" onClick={clearPlaceName}>
           Choose a Location
         </button>
       </StyledLocation>
