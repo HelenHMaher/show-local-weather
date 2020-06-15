@@ -70,6 +70,8 @@ export const Location = (props) => {
     setCountry("");
     setPlaceName("");
 
+    //figure out how to set POSTALCODE based on geolocation data!!
+
     axios({
       method: "get",
       url:
