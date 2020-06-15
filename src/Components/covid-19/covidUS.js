@@ -1,27 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import moment from "moment";
+import { abbFromStateName } from "./stateAbbr";
 
 export const CovidUS = (props) => {
-  const {} = props;
+  const { placeName, addressObject, countryCode } = props;
 
   const [covidUSData, setCovidUSData] = useState({});
 
-  function covidData() {
+  function getState(placeName, addressObject) {
+    const stateAbbreviation = addressObject
+      ? abbFromStateName(addressObject.state)
+      : abbFromStateName(placeName.split(", ")[2]);
+    covidData(stateAbbreviation);
+  }
+
+  function covidData(stateAbbreviation) {
     axios({
       method: "get",
-      url: `https://coronavirusapi.com/getTimeSeries/${stateAbbreviation]}`
+      url: `https://cors-anywhere-hhm.herokuapp.com/https://coronavirusapi.com/getTimeSeries/${stateAbbreviation}`,
     })
       .then((response) => {
         let data = response.data;
         setCovidUSData(data);
-        console.log(current);
+        console.log(data);
       })
       .catch((error) => {
         console.log(error);
       });
-}
+  }
+
+  useEffect(() => {
+    if (countryCode === "US") getState(placeName, addressObject);
+  }, [countryCode]);
 
   return (
     <div>
@@ -44,8 +56,7 @@ export const CovidUS = (props) => {
 export default CovidUS;
 
 CovidUS.propTypes = {
-
+  placeName: PropTypes.string,
+  addressObject: PropTypes.object,
+  countryCode: PropTypes.string,
 };
-
-
-

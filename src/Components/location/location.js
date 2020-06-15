@@ -15,10 +15,9 @@ export const Location = (props) => {
     getCountryCode,
     clearData,
     clear,
-    getPostalCode,
+    getStateName,
   } = props;
 
-  const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [tempCity, setTempCity] = useState("");
   const [tempCountry, setTempCountry] = useState("");
@@ -49,14 +48,14 @@ export const Location = (props) => {
       },
     })
       .then((response) => {
-        setCity(response.data.address.borough);
+        setPlaceName(response.data.display_name);
         setCountry(response.data.address.country);
         getCountryCode(
           response.data.address.country_code,
           response.data.address.country
         );
-        getPostalCode(response.data.address.postcode);
-        //console.log(response);
+        getStateName(response.data.address);
+        console.log(response);
         console.log("reverse Geolocation");
       })
       .catch((error) => {
@@ -66,7 +65,6 @@ export const Location = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     clearData();
-    setCity("");
     setCountry("");
     setPlaceName("");
 
@@ -89,14 +87,12 @@ export const Location = (props) => {
       .then((response) => {
         if (response.data.features.length >= 1) {
           console.log("geolocation");
-          if (tempPostalCode) getPostalCode(tempPostalCode);
-          //if (tempCity) setStateName(response.data.features[0].properties.display_name.split(", ")[2]);
+          getStateName(response.data.features[0].properties.display_name);
           getCountryName(tempCountry, getNewCountry);
-          setCity(tempCity.toUpperCase());
           setTempCity("");
           setTempCountry("");
           setTempPostalCode("");
-          console.log(response);
+          //console.log(response);
           submitLatLon(response.data.features[0]);
           setPlaceName(response.data.features[0].properties.display_name);
         } else {
@@ -122,9 +118,7 @@ export const Location = (props) => {
     return (
       <StyledLocation placeName={placeName} country={country}>
         <div className="displayLocation">
-          <h2>
-            {city}, {country}
-          </h2>
+          <h2>{placeName}</h2>
         </div>
         <div className="locationDetails">
           <ul>
@@ -221,5 +215,5 @@ Location.propTypes = {
   getCountryCode: PropTypes.func,
   clearData: PropTypes.func,
   clear: PropTypes.bool,
-  getPostalCode: PropTypes.func,
+  getStateName: PropTypes.func,
 };

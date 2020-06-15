@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import moment from "moment";
 import { StyledCovid19 } from "./covid-19.styled";
+import CovidUS from "./covidUS";
 
 export const Covid19 = (props) => {
-  const { countryCode, date } = props;
+  const { countryCode, date, addressObject, placeName } = props;
 
   const [showCovid, setShowCovid] = useState(false);
   const [latestCovid, setLatestCovid] = useState({});
@@ -22,7 +23,7 @@ export const Covid19 = (props) => {
       const formatedDate = moment.unix(date - 604800).format("YYYY-MM-DD");
       axios({
         method: "get",
-        url: `https://covid19-api.org/api/status/${countryCode.countryCode.toUpperCase()}`,
+        url: `https://covid19-api.org/api/status/${countryCode.countryCode}`,
       })
         .then((response) => {
           let current = response.data;
@@ -81,6 +82,11 @@ export const Covid19 = (props) => {
           <li>recovered: +{latestCovid.recovered - previousCovid.recovered}</li>
           <li>deaths: +{latestCovid.deaths - previousCovid.deaths}</li>
         </ul>
+        <CovidUS
+          placeName={placeName}
+          addressObject={addressObject}
+          countryCode={countryCode.countryCode}
+        />
       </StyledCovid19>
     );
   } else if (countryCode.countryCode) {
@@ -101,4 +107,6 @@ export default Covid19;
 Covid19.propTypes = {
   countryCode: PropTypes.object,
   date: PropTypes.number,
+  addressObject: PropTypes.object,
+  placeName: PropTypes.string,
 };

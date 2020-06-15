@@ -23,16 +23,19 @@ function App() {
     countryCode: "",
     country: "",
   });
-  const [postalCode, setPostalCode] = useState(null);
+  const [addressObject, setAddressObject] = useState({});
   const [clear, setClear] = useState(false);
+  const [placeName, setPlaceName] = useState("");
   const [image, setImage] = useState(
     `https://openweathermap.org/img/wn/01n@2x.png`
   );
 
   const STATUS = "";
 
-  function getPostalCode(input) {
-    setPostalCode(input);
+  function getStateName(input) {
+    if (typeof input === "string") {
+      setPlaceName(input);
+    } else setAddressObject(input);
   }
 
   function clearData() {
@@ -41,6 +44,8 @@ function App() {
     setWeatherTheme("");
     setDayNight("");
     setTimeZone(null);
+    setAddressObject(null);
+    setPlaceName("");
     setCountryCode({ countryCode: "", country: "" });
     setImage(`https://openweathermap.org/img/wn/01n@2x.png`);
     setClear(true);
@@ -164,7 +169,10 @@ function App() {
   }
 
   function getCountryCode(countryCode, country) {
-    setCountryCode({ countryCode: countryCode, country: country });
+    setCountryCode({
+      countryCode: countryCode.toUpperCase(),
+      country: country,
+    });
   }
 
   //change weather theme
@@ -238,7 +246,7 @@ function App() {
             getCountryCode={getCountryCode}
             clearData={clearData}
             clear={clear}
-            getPostalCode={getPostalCode}
+            getStateName={getStateName}
           />
 
           <MainDisplay
@@ -262,7 +270,8 @@ function App() {
           <Covid19
             countryCode={countryCode}
             date={date}
-            postalCode={postalCode}
+            addressObject={addressObject}
+            placeName={placeName}
           />
           <Footer />
         </div>
