@@ -5,15 +5,54 @@ import moment from "moment";
 import { abbFromStateName } from "./stateAbbr";
 
 export const CovidUS = (props) => {
-  const { placeName, addressObject, countryCode } = props;
+  const { placeName, addressObject, countryCode, showCovid } = props;
 
-  const [covidUSData, setCovidUSData] = useState({});
+  const [covidCurrent, setCovidCurrent] = useState({});
+  const [covidPrevious, setCovidPrevious] = useState({});
+  const [stateName, setStateName] = useState("");
 
   function getState(placeName, addressObject) {
-    const stateAbbreviation = addressObject
-      ? abbFromStateName(addressObject.state)
-      : abbFromStateName(placeName.split(", ")[2]);
+    let stateAbbreviation;
+    if (addressObject) {
+      stateAbbreviation = abbFromStateName(addressObject.state);
+      setStateName(addressObject.state);
+    } else {
+      stateAbbreviation = abbFromStateName(placeName.split(", ")[2]);
+      setStateName(placeName.split(", ")[2]);
+    }
     covidData(stateAbbreviation);
+  }
+
+  function processData(allText) {
+    var allTextLines = allText.split(/\r\n|\n/);
+    var headers = allTextLines[0].split(",");
+    var lines = [];
+
+    for (var i = 1; i < allTextLines.length; i++) {
+      var data = allTextLines[i].split(",");
+      if (data.length === headers.length) {
+        var tarr = [];
+        for (var j = 0; j < headers.length; j++) {
+          tarr.push(data[j]);
+        }
+        lines.push(tarr);
+      }
+    }
+    const covidCurrent = lines[lines.length - 1];
+    const covidPrevious = lines[lines.length - 8];
+    setCovidCurrent({
+      epoch: parseInt(covidCurrent[0]),
+      tested: parseInt(covidCurrent[1]),
+      positive: parseInt(covidCurrent[2]),
+      deaths: parseInt(covidCurrent[3]),
+    });
+    setCovidPrevious({
+      epoch: parseInt(covidPrevious[0]),
+      tested: parseInt(covidPrevious[1]),
+      positive: parseInt(covidPrevious[2]),
+      deaths: parseInt(covidPrevious[3]),
+    });
+    console.log(lines[lines.length - 1] + " && " + lines[lines.length - 7]);
   }
 
   function covidData(stateAbbreviation) {
@@ -23,8 +62,7 @@ export const CovidUS = (props) => {
     })
       .then((response) => {
         let data = response.data;
-        setCovidUSData(data);
-        console.log(data);
+        processData(data);
       })
       .catch((error) => {
         console.log(error);
@@ -32,25 +70,46 @@ export const CovidUS = (props) => {
   }
 
   useEffect(() => {
-    if (countryCode === "US") getState(placeName, addressObject);
+    if (showCovid && countryCode === "US") {
+      getState(placeName, addressObject);
+    } else {
+      setStateName("");
+    }
   }, [countryCode]);
 
-  return (
-    <div>
-      <ul className="latestCovid">
-        <li>Updated: </li>
-        <li>tested: </li>
-        <li>positive: </li>
-        <li>deaths: </li>
-      </ul>
-      <ul className="previousCovid">
-        <li>Updated: </li>
-        <li>tested: </li>
-        <li>positive: </li>
-        <li>deaths: </li>
-      </ul>
-    </div>
-  );
+  if (countryCode === "US") {
+    return (
+      <div>
+        <div className="location">{stateName}</div>
+        <ul className="latestCovid">
+          <li>
+            <span className="label">Current</span>
+          </li>
+          <li>
+            Updated:{" "}
+            {moment.unix(covidCurrent.epoch).utc().format("MMM D[,] YYYY")}
+          </li>
+          <li>tested: {covidCurrent.tested}</li>
+          <li>positive: {covidCurrent.positive}</li>
+          <li>deaths: {covidCurrent.deaths}</li>
+        </ul>
+        <ul className="previousCovid">
+          <li>
+            <span className="label">Rate of Increase</span>
+          </li>
+          <li>
+            Changes as of:{" "}
+            {moment.unix(covidPrevious.epoch).utc().format("MMM D[,] YYYY")}
+          </li>
+          <li>tested: +{covidCurrent.tested - covidPrevious.tested}</li>
+          <li>positive: +{covidCurrent.positive - covidPrevious.positive}</li>
+          <li>deaths: +{covidCurrent.deaths - covidPrevious.deaths}</li>
+        </ul>
+      </div>
+    );
+  } else {
+    return <div>{stateName}</div>;
+  }
 };
 
 export default CovidUS;
@@ -59,4 +118,5 @@ CovidUS.propTypes = {
   placeName: PropTypes.string,
   addressObject: PropTypes.object,
   countryCode: PropTypes.string,
+  showCovid: PropTypes.bool,
 };

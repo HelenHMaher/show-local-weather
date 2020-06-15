@@ -1,3 +1,3 @@
-1.  State specific COVID info for the US using "https://coronavirusapi.com/"
+1.  Work out kinks in retreiving stateName
 2.  option to change to UTC? or display temp in Fahrenheit?
 3.  HIDE API KEYS!!

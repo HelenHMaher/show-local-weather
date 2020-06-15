@@ -72,7 +72,7 @@ export const Covid19 = (props) => {
         </ul>
         <ul className="previousCovid">
           <li>
-            <span className="label">Last 7 days</span>
+            <span className="label">Rate of Increase</span>
           </li>
           <li>
             Changes as of:{" "}
@@ -86,6 +86,7 @@ export const Covid19 = (props) => {
           placeName={placeName}
           addressObject={addressObject}
           countryCode={countryCode.countryCode}
+          showCovid={showCovid}
         />
       </StyledCovid19>
     );
@@ -93,7 +94,7 @@ export const Covid19 = (props) => {
     return (
       <StyledCovid19>
         <button className="getCovid" onClick={covidData}>
-          show COVID-19 data in {countryCode.country}
+          show COVID-19 data
         </button>
       </StyledCovid19>
     );
