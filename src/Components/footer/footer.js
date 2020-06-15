@@ -45,6 +45,14 @@ export const Footer = () => {
             rel="noopener noreferrer"
           >
             COVID-19 API
+          </a>{" "}
+          and the{" "}
+          <a
+            href="https://coronavirusapi.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Coronavirus API Public Health Initiative
           </a>
         </li>
       </ul>
