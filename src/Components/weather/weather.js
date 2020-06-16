@@ -28,7 +28,7 @@ export const Weather = (props) => {
   const STATUS = "";
 
   function showWeather() {
-    axios({
+    /*axios({
       method: "get",
       url:
         "https://cors-anywhere-hhm.herokuapp.com/api.openweathermap.org/data/2.5/weather",
@@ -38,6 +38,10 @@ export const Weather = (props) => {
         units: "metric",
         appid: "9761974d8e7e1a1d192323f66e2d03d9",
       },
+    })*/
+    axios({
+      method: "get",
+      url: `http://localhost:3000/show-local-weather/weatherAPI/${lat}/${lon}/metric`,
     })
       .then((response) => {
         console.log("weather data");
