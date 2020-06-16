@@ -13,6 +13,25 @@ app.get("/heartbeat", function (req, res) {
   res.send("<3 <3");
 });
 
+app
+  .route("/weatherAPI/:lat/:lon/:units")
+  .get(
+    "https://cors-anywhere-hhm.herokuapp.com/api.openweathermap.org/data/2.5/weather",
+    function (req, res) {
+      axios({
+        method: "get",
+        url:
+          "https://cors-anywhere-hhm.herokuapp.com/api.openweathermap.org/data/2.5/weather",
+        params: {
+          lat: lat,
+          lon: lon,
+          units: units,
+          appid: process.env.API_KEY,
+        },
+      });
+    }
+  );
+
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
