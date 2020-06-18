@@ -151,12 +151,7 @@ function App() {
   function getTimeZone(lat, lon) {
     axios({
       method: "get",
-      url: "https://api.ipgeolocation.io/timezone",
-      params: {
-        lat: lat,
-        long: lon,
-        apiKey: "dfc30544cd064a2fbb4015ca4b8cef07",
-      },
+      url: `/timeZoneAPI/${lat}/${lon}`,
     })
       .then((response) => {
         const offset = response.data.timezone_offset;

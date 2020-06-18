@@ -17,7 +17,6 @@ app.get("/heartbeat", function (req, res) {
 app.get("/weatherAPI/:lat/:lon/:units", async function (req, res) {
   const { lat, lon, units } = req.params;
   const { API_KEY } = process.env;
-  console.log("API_KEY: ", API_KEY);
 
   try {
     const response = await axios({
@@ -27,12 +26,30 @@ app.get("/weatherAPI/:lat/:lon/:units", async function (req, res) {
         lat,
         lon,
         units,
-        // appid: "9761974d8e7e1a1d192323f66e2d03d9",
         appid: API_KEY,
       },
     });
+    res.send(response.data);
+  } catch (error) {
+    console.log("some shitty error:", error);
+  }
+});
 
-    // console.log("response.data: ", response.data);
+app.get("/timeZoneAPI/:lat/:long/:units", async function (req, res) {
+  const { lat, long } = req.params;
+  const { REACT_APP_API_KEY } = process.env;
+
+  try {
+    const response = await axios({
+      method: "get",
+      url: "https://api.openweathermap.org/data/2.5/weather",
+      params: {
+        lat,
+        long,
+        appid: REACT_APP_API_KEY,
+      },
+    });
+
     res.send(response.data);
   } catch (error) {
     console.log("some shitty error:", error);
@@ -42,7 +59,6 @@ app.get("/weatherAPI/:lat/:lon/:units", async function (req, res) {
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-//create 2 routes that adds the API key for
 
 // start the server listening for requests
 app.listen(process.env.PORT || 3000, () => console.log("Server is running..."));
