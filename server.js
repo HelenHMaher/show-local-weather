@@ -14,26 +14,29 @@ app.get("/heartbeat", function (req, res) {
   res.send("<3 <3");
 });
 
-app.get("/show-local-weather/weatherAPI/:lat/:lon/:units", async function (
-  req,
-  res
-) {
-  const lat = req.params.lat;
-  const lon = req.params.lon;
-  const units = req.params.units;
-  axios({
-    method: "get",
-    url:
-      "https://cors-anywhere-hhm.herokuapp.com/api.openweathermap.org/data/2.5/weather",
-    params: {
-      lat: lat,
-      lon: lon,
-      units: units,
-      appid: process.env.API_KEY,
-    },
-  }).then((data) => {
-    res.send(data);
-  });
+app.get("/weatherAPI/:lat/:lon/:units", async function (req, res) {
+  const { lat, lon, units } = req.params;
+  const { API_KEY } = process.env;
+  console.log("API_KEY: ", API_KEY);
+
+  try {
+    const response = await axios({
+      method: "get",
+      url: "https://api.openweathermap.org/data/2.5/weather",
+      params: {
+        lat,
+        lon,
+        units,
+        // appid: "9761974d8e7e1a1d192323f66e2d03d9",
+        appid: API_KEY,
+      },
+    });
+
+    // console.log("response.data: ", response.data);
+    res.send(response.data);
+  } catch (error) {
+    console.log("some shitty error:", error);
+  }
 });
 
 app.get("/", function (req, res) {

@@ -28,23 +28,24 @@ export const Weather = (props) => {
   const STATUS = "";
 
   function showWeather() {
-    /*axios({
-      method: "get",
-      url:
-        "https://cors-anywhere-hhm.herokuapp.com/api.openweathermap.org/data/2.5/weather",
-      params: {
-        lat: lat,
-        lon: lon,
-        units: "metric",
-        appid: "9761974d8e7e1a1d192323f66e2d03d9",
-      },
-    })*/
+    // axios({
+    //   method: "get",
+    //   url:
+    //     "https://cors-anywhere-hhm.herokuapp.com/api.openweathermap.org/data/2.5/weather",
+    //   params: {
+    //     lat: lat,
+    //     lon: lon,
+    //     units: "metric",
+    //     appid: "9761974d8e7e1a1d192323f66e2d03d9",
+    //   },
+    // })
     axios({
       method: "get",
-      url: `http://localhost:3000/show-local-weather/weatherAPI/${lat}/${lon}/metric`,
+      url: `/weatherAPI/${lat}/${lon}/metric`,
     })
       .then((response) => {
         console.log("weather data");
+        console.log(("data is", response.data));
         const data = response.data;
         const dateTime = response.headers.date;
 
