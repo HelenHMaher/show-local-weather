@@ -16,7 +16,7 @@ app.get("/heartbeat", function (req, res) {
 
 app.get("/weatherAPI/:lat/:lon/:units", async function (req, res) {
   const { lat, lon, units } = req.params;
-  const { API_KEY } = process.env;
+  const { WEATHER_API_KEY } = process.env;
 
   try {
     const response = await axios({
@@ -26,7 +26,7 @@ app.get("/weatherAPI/:lat/:lon/:units", async function (req, res) {
         lat,
         lon,
         units,
-        appid: API_KEY,
+        appid: WEATHER_API_KEY,
       },
     });
     res.send(response.data);
@@ -35,18 +35,18 @@ app.get("/weatherAPI/:lat/:lon/:units", async function (req, res) {
   }
 });
 
-app.get("/timeZoneAPI/:lat/:long/:units", async function (req, res) {
+app.get("/timeZoneAPI/:lat/:long/", async function (req, res) {
   const { lat, long } = req.params;
-  const { REACT_APP_API_KEY } = process.env;
+  const { TIME_ZONE_API_KEY } = process.env;
 
   try {
     const response = await axios({
       method: "get",
-      url: "https://api.openweathermap.org/data/2.5/weather",
+      url: "https://api.ipgeolocation.io/timezone",
       params: {
         lat,
         long,
-        appid: REACT_APP_API_KEY,
+        apiKey: TIME_ZONE_API_KEY,
       },
     });
 
