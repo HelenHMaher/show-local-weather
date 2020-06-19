@@ -5,20 +5,20 @@ import moment from "moment";
 import { abbFromStateName } from "./stateAbbr";
 
 export const CovidUS = (props) => {
-  const { placeName, addressObject, countryCode, showCovid } = props;
+  const { stateName, addressObject, countryCode, showCovid } = props;
 
   const [covidCurrent, setCovidCurrent] = useState({});
   const [covidPrevious, setCovidPrevious] = useState({});
-  const [stateName, setStateName] = useState("");
+  const [finalStateName, setFinalStateName] = useState("");
 
-  function getState(placeName, addressObject) {
+  function getFinalState(stateName, addressObject) {
     let stateAbbreviation;
     if (addressObject) {
       stateAbbreviation = abbFromStateName(addressObject.state);
-      setStateName(addressObject.state);
+      setFinalStateName(addressObject.state);
     } else {
-      stateAbbreviation = abbFromStateName(placeName.split(", ")[2]);
-      setStateName(placeName.split(", ")[2]);
+      stateAbbreviation = abbFromStateName(stateName);
+      setFinalStateName(stateName);
     }
     covidData(stateAbbreviation);
   }
@@ -71,16 +71,16 @@ export const CovidUS = (props) => {
 
   useEffect(() => {
     if (showCovid && countryCode === "US") {
-      getState(placeName, addressObject);
+      getFinalState(stateName, addressObject);
     } else {
-      setStateName("");
+      setFinalStateName("");
     }
   }, [countryCode]);
 
   if (countryCode === "US") {
     return (
       <div>
-        <div className="location">{stateName}</div>
+        <div className="location">{finalStateName}</div>
         <ul className="latestCovid">
           <li>
             <span className="label">Current</span>
@@ -108,14 +108,14 @@ export const CovidUS = (props) => {
       </div>
     );
   } else {
-    return <div>{stateName}</div>;
+    return <div>{finalStateName}</div>;
   }
 };
 
 export default CovidUS;
 
 CovidUS.propTypes = {
-  placeName: PropTypes.string,
+  stateName: PropTypes.string,
   addressObject: PropTypes.object,
   countryCode: PropTypes.string,
   showCovid: PropTypes.bool,

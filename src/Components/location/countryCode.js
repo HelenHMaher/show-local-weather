@@ -235,6 +235,7 @@ const isoCountries = {
   US: "United States",
   us: "United States of America",
   Us: "The United States of America",
+  uS: "USA",
   UM: "United States Outlying Islands",
   UY: "Uruguay",
   UZ: "Uzbekistan",

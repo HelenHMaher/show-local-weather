@@ -6,7 +6,7 @@ import { StyledCovid19 } from "./covid-19.styled";
 import CovidUS from "./covidUS";
 
 export const Covid19 = (props) => {
-  const { countryCode, date, addressObject, placeName } = props;
+  const { countryCode, date, addressObject, stateName } = props;
 
   const [showCovid, setShowCovid] = useState(false);
   const [latestCovid, setLatestCovid] = useState({});
@@ -83,7 +83,7 @@ export const Covid19 = (props) => {
           <li>deaths: +{latestCovid.deaths - previousCovid.deaths}</li>
         </ul>
         <CovidUS
-          placeName={placeName}
+          stateName={stateName}
           addressObject={addressObject}
           countryCode={countryCode.countryCode}
           showCovid={showCovid}
@@ -109,5 +109,5 @@ Covid19.propTypes = {
   countryCode: PropTypes.object,
   date: PropTypes.number,
   addressObject: PropTypes.object,
-  placeName: PropTypes.string,
+  stateName: PropTypes.string,
 };

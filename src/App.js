@@ -25,7 +25,7 @@ function App() {
   });
   const [addressObject, setAddressObject] = useState({});
   const [clear, setClear] = useState(false);
-  const [placeName, setPlaceName] = useState("");
+  const [stateName, setStateName] = useState("");
   const [image, setImage] = useState(
     `https://openweathermap.org/img/wn/01n@2x.png`
   );
@@ -34,7 +34,7 @@ function App() {
 
   function getStateName(input) {
     if (typeof input === "string") {
-      setPlaceName(input);
+      setStateName(input);
     } else setAddressObject(input);
   }
 
@@ -45,7 +45,7 @@ function App() {
     setDayNight("");
     setTimeZone(null);
     setAddressObject(null);
-    setPlaceName("");
+    setStateName("");
     setCountryCode({ countryCode: "", country: "" });
     setImage(`https://openweathermap.org/img/wn/01n@2x.png`);
     setClear(true);
@@ -266,7 +266,7 @@ function App() {
             countryCode={countryCode}
             date={date}
             addressObject={addressObject}
-            placeName={placeName}
+            stateName={stateName}
           />
           <Footer />
         </div>

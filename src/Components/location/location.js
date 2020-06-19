@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import getCountryName from "./countryCode";
 import { StyledLocation } from "./location.styled";
+import InputState from "./InputState";
 
 export const Location = (props) => {
   const {
@@ -22,9 +23,16 @@ export const Location = (props) => {
   const [tempCity, setTempCity] = useState("");
   const [tempCountry, setTempCountry] = useState("");
   const [tempPostalCode, setTempPostalCode] = useState("");
+  const [tempState, setTempState] = useState("");
   const [placeName, setPlaceName] = useState("");
+  const [clearStateData, setClearStateData] = useState(false);
 
   const STATUS = "";
+
+  function getUSState(input) {
+    setClearStateData(false);
+    setTempState(input);
+  }
 
   function clearPlaceName() {
     setPlaceName("");
@@ -65,6 +73,7 @@ export const Location = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     clearData();
+    setClearStateData(true);
     setCountry("");
     setPlaceName("");
 
@@ -85,11 +94,12 @@ export const Location = (props) => {
       .then((response) => {
         if (response.data.features.length >= 1) {
           console.log("geolocation");
-          getStateName(response.data.features[0].properties.display_name);
+          getStateName(tempState);
           getCountryName(tempCountry, getNewCountry);
           setTempCity("");
           setTempCountry("");
           setTempPostalCode("");
+          setTempState("");
           //console.log(response);
           submitLatLon(response.data.features[0]);
           setPlaceName(response.data.features[0].properties.display_name);
@@ -151,6 +161,11 @@ export const Location = (props) => {
             />
             <br />
           </div>
+          <InputState
+            tempCountry={tempCountry}
+            getUSState={getUSState}
+            clearStateData={clearStateData}
+          />
           <div className="inputSet">
             <label htmlFor="cityInput">City </label>
             <input
