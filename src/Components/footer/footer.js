@@ -6,7 +6,16 @@ export const Footer = () => {
     <StyledFooter className="App-footer">
       <hr />
       <ul>
-        <li>coded by Helen Maher</li>
+        <li>
+          coded by{" "}
+          <a
+            href="https://github.com/HelenHMaher"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Helen Maher
+          </a>
+        </li>
         <li>
           location data powered by{" "}
           <a
