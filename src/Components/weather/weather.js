@@ -24,8 +24,13 @@ export const Weather = (props) => {
   const [cloudCover, setCloudCover] = useState(null);
   const [sunrise, setSunrise] = useState(null);
   const [sunset, setSunset] = useState(null);
+  const [tempUnits, setTempUnits] = useState("C");
 
   const STATUS = "";
+
+  function toggleTempUnits() {
+    tempUnits === "C" ? setTempUnits("F") : setTempUnits("C");
+  }
 
   function showWeather() {
     axios({
@@ -88,7 +93,11 @@ export const Weather = (props) => {
             <span className="label">Description</span> {weatherDescript}
           </li>
           <li>
-            <span className="label">Temperature</span> {temp} &#176;C
+            <span className="label">Temperature</span>{" "}
+            {tempUnits === "C" ? temp : (temp * 1.8 + 32).toFixed(2)}{" "}
+            <span id="displayTempUnits" onClick={toggleTempUnits}>
+              &#176;{tempUnits}
+            </span>
           </li>
           <li>
             <span className="label">Humidity</span> {humidity} &#37;

@@ -5,16 +5,16 @@ export const StyledWeather = styled.section`
   font-size: 14px;
   width: 90%;
 
-.label {
-        font-size: 20px;
-        padding-right: 5px;
-    }
+  .label {
+    font-size: 20px;
+    padding-right: 5px;
+  }
   ul {
     list-style-type: none;
     padding: 0;
   }
   li {
-      padding: 5px 0;
+    padding: 5px 0;
   }
 
   .time {
@@ -24,4 +24,11 @@ export const StyledWeather = styled.section`
     @media (max-width: ${({ theme }) => theme.mobile}) {
       font-size: 16px;
     }
+  }
+  #displayTempUnits {
+    :hover {
+      cursor: pointer;
+      color: black;
+    }
+  }
 `;
