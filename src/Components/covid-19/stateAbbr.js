@@ -53,6 +53,12 @@ const states = [
 
 export function abbFromStateName(name) {
   for (let i = 0; i < states.length; i++) {
-    if (states[i][0] === name) return states[i][1];
+    if (states[i][0].toLowerCase() === name.toLowerCase()) return states[i][1];
+  }
+}
+
+export function stateNameFromStateName(name) {
+  for (let i = 0; i < states.length; i++) {
+    if (states[i][0].toLowerCase() === name.toLowerCase()) return states[i][0];
   }
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import moment from "moment";
-import { abbFromStateName } from "./stateAbbr";
+import { abbFromStateName, stateNameFromStateName } from "./stateAbbr";
 
 export const CovidUS = (props) => {
   const { stateName, addressObject, countryCode, showCovid } = props;
@@ -18,7 +18,7 @@ export const CovidUS = (props) => {
       setFinalStateName(addressObject.state);
     } else {
       stateAbbreviation = abbFromStateName(stateName);
-      setFinalStateName(stateName);
+      setFinalStateName(stateNameFromStateName(stateName));
     }
     covidData(stateAbbreviation);
   }
