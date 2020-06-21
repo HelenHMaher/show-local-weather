@@ -77,19 +77,47 @@ export const Location = (props) => {
     setCountry("");
     setPlaceName("");
 
+    let params = {};
+    if (
+      tempCountry.toUpperCase() === "USA" ||
+      tempCountry.toUpperCase() === "UNITED STATES" ||
+      tempCountry.toUpperCase() === "THE UNITED STATES OF AMERICA" ||
+      tempCountry.toUpperCase() === "UNITED STATES OF AMERICA"
+    ) {
+      if (tempPostalCode) {
+        params = {
+          country: tempCountry,
+          postalcode: tempPostalCode,
+          format: "geojson",
+        };
+      } else if (tempState && tempCity) {
+        params = { country: tempCountry, city: tempCity, format: "geojson" };
+      } else if (tempState) {
+        params = { country: tempCountry, state: tempState, format: "geojson" };
+      } else if (tempCity) {
+        params = { country: tempCountry, city: tempCity, format: "geojson" };
+      } else {
+        params = { country: tempCountry, format: "geojson" };
+      }
+    } else {
+      if (tempPostalCode) {
+        params = {
+          country: tempCountry,
+          postalcode: tempPostalCode,
+          format: "geojson",
+        };
+      } else if (tempCity) {
+        params = { country: tempCountry, city: tempCity, format: "geojson" };
+      } else {
+        params = { country: tempCountry, format: "geojson" };
+      }
+    }
+
     axios({
       method: "get",
       url:
         "https://cors-anywhere-hhm.herokuapp.com/https://nominatim.openstreetmap.org/search",
-      params: tempPostalCode
-        ? {
-            country: tempCountry,
-            postalcode: tempPostalCode,
-            format: "geojson",
-          }
-        : tempCity
-        ? { country: tempCountry, city: tempCity, format: "geojson" }
-        : { country: tempCountry, format: "geojson" },
+      params,
     })
       .then((response) => {
         if (response.data.features.length >= 1) {
